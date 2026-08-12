@@ -9,10 +9,7 @@ const assetsDir = path.resolve(
   ".cursor/projects/c-Users-jerro-Desktop-formulated-apparel/assets",
 );
 
-/**
- * One Soft Bakes only (no same-design dupes).
- * Plus real client pieces + 7 fictional portfolio brands.
- */
+/** Unique brands only — Legacy Decks removed (was reading as duplicated). */
 const studio = [
   {
     file: "studio-01-softbakes-back.jpg",
@@ -43,11 +40,6 @@ const studio = [
     file: "studio-09-formulated-v4.jpg",
     label: "Formulated",
     alt: "Formulated constellation left-chest crewneck",
-  },
-  {
-    file: "studio-10-legacy.jpg",
-    label: "Legacy Decks",
-    alt: "Legacy Decks Ltd company hoodie order",
   },
   {
     file: "studio-f01-northpine.jpg",
@@ -83,6 +75,41 @@ const studio = [
     file: "studio-f07-prairievolt.jpg",
     label: "Prairie Volt",
     alt: "Prairie Volt Energy left-chest tee",
+  },
+  {
+    file: "studio-f08-stonehaven.jpg",
+    label: "Stonehaven Brewing",
+    alt: "Stonehaven Brewing branded hoodie",
+  },
+  {
+    file: "studio-f09-marrow.jpg",
+    label: "Marrow & Co",
+    alt: "Marrow & Co kitchen brand crewneck",
+  },
+  {
+    file: "studio-f10-bluekiln.jpg",
+    label: "Bluekiln Ceramics",
+    alt: "Bluekiln Ceramics branded tee",
+  },
+  {
+    file: "studio-f11-fernvale.jpg",
+    label: "Fernvale Veterinary",
+    alt: "Fernvale Veterinary branded hoodie",
+  },
+  {
+    file: "studio-f12-ashcroft.jpg",
+    label: "Ashcroft Roofing",
+    alt: "Ashcroft Roofing back-print tee",
+  },
+  {
+    file: "studio-f13-lumenfield.jpg",
+    label: "Lumenfield Labs",
+    alt: "Lumenfield Labs branded hoodie",
+  },
+  {
+    file: "studio-f14-brackish.jpg",
+    label: "Brackish Outfit Co",
+    alt: "Brackish Outfit Co branded tee",
   },
 ];
 

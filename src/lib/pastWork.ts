@@ -5,7 +5,7 @@ export type PastWorkItem = {
   rotate: number;
 };
 
-/** Studio-shot portfolio for the home hero film — unique brands only. */
+/** Studio-shot portfolio — unique brands only, no Legacy Decks duplicate. */
 export const pastWorkItems: PastWorkItem[] = [
   {
     src: "/images/past-work/work-01.jpg",
@@ -45,56 +45,97 @@ export const pastWorkItems: PastWorkItem[] = [
   },
   {
     src: "/images/past-work/work-07.jpg",
-    label: "Legacy Decks",
-    alt: "Legacy Decks Ltd company hoodie order",
-    rotate: 1.0,
-  },
-  {
-    src: "/images/past-work/work-08.jpg",
     label: "Northpine",
     alt: "Northpine Outfitters branded hoodie",
     rotate: -0.8,
   },
   {
-    src: "/images/past-work/work-09.jpg",
+    src: "/images/past-work/work-08.jpg",
     label: "Copperline Electric",
     alt: "Copperline Electric company tee",
     rotate: 0.7,
   },
   {
-    src: "/images/past-work/work-10.jpg",
+    src: "/images/past-work/work-09.jpg",
     label: "Driftwood Coffee",
     alt: "Driftwood Coffee Co branded hoodie",
     rotate: -0.6,
   },
   {
-    src: "/images/past-work/work-11.jpg",
+    src: "/images/past-work/work-10.jpg",
     label: "Peakline Scaffolding",
     alt: "Peakline Scaffolding back-print tee",
     rotate: 0.9,
   },
   {
-    src: "/images/past-work/work-12.jpg",
+    src: "/images/past-work/work-11.jpg",
     label: "Hollow & Pine",
     alt: "Hollow & Pine Studio crewneck",
     rotate: -1.0,
   },
   {
-    src: "/images/past-work/work-13.jpg",
+    src: "/images/past-work/work-12.jpg",
     label: "Redshift Athletics",
     alt: "Redshift Athletics navy hoodie",
     rotate: 0.4,
   },
   {
-    src: "/images/past-work/work-14.jpg",
+    src: "/images/past-work/work-13.jpg",
     label: "Prairie Volt",
     alt: "Prairie Volt Energy left-chest tee",
     rotate: -0.4,
   },
+  {
+    src: "/images/past-work/work-14.jpg",
+    label: "Stonehaven Brewing",
+    alt: "Stonehaven Brewing branded hoodie",
+    rotate: 1.0,
+  },
+  {
+    src: "/images/past-work/work-15.jpg",
+    label: "Marrow & Co",
+    alt: "Marrow & Co kitchen brand crewneck",
+    rotate: -0.85,
+  },
+  {
+    src: "/images/past-work/work-16.jpg",
+    label: "Bluekiln Ceramics",
+    alt: "Bluekiln Ceramics branded tee",
+    rotate: 0.55,
+  },
+  {
+    src: "/images/past-work/work-17.jpg",
+    label: "Fernvale Veterinary",
+    alt: "Fernvale Veterinary branded hoodie",
+    rotate: -0.7,
+  },
+  {
+    src: "/images/past-work/work-18.jpg",
+    label: "Ashcroft Roofing",
+    alt: "Ashcroft Roofing back-print tee",
+    rotate: 0.95,
+  },
+  {
+    src: "/images/past-work/work-19.jpg",
+    label: "Lumenfield Labs",
+    alt: "Lumenfield Labs branded hoodie",
+    rotate: -0.45,
+  },
+  {
+    src: "/images/past-work/work-20.jpg",
+    label: "Brackish Outfit Co",
+    alt: "Brackish Outfit Co branded tee",
+    rotate: 0.65,
+  },
 ];
 
-/** Two staggered rows — no cross-row reuse of the same Soft Bakes shot. */
+/** Interleave into two rows so brands stay mixed and loop seams are less obvious. */
 export function pastWorkRows() {
-  const mid = Math.ceil(pastWorkItems.length / 2);
-  return [pastWorkItems.slice(0, mid), pastWorkItems.slice(mid)] as const;
+  const a: PastWorkItem[] = [];
+  const b: PastWorkItem[] = [];
+  pastWorkItems.forEach((item, index) => {
+    if (index % 2 === 0) a.push(item);
+    else b.push(item);
+  });
+  return [a, b] as const;
 }

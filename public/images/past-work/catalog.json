@@ -37,50 +37,86 @@
   },
   {
     "src": "/images/past-work/work-07.jpg",
-    "label": "Legacy Decks",
-    "alt": "Legacy Decks Ltd company hoodie order",
+    "label": "Northpine",
+    "alt": "Northpine Outfitters branded hoodie",
     "rotate": 0
   },
   {
     "src": "/images/past-work/work-08.jpg",
-    "label": "Northpine",
-    "alt": "Northpine Outfitters branded hoodie",
+    "label": "Copperline Electric",
+    "alt": "Copperline Electric company tee",
     "rotate": 0.85
   },
   {
     "src": "/images/past-work/work-09.jpg",
-    "label": "Copperline Electric",
-    "alt": "Copperline Electric company tee",
+    "label": "Driftwood Coffee",
+    "alt": "Driftwood Coffee Co branded hoodie",
     "rotate": 1.7
   },
   {
     "src": "/images/past-work/work-10.jpg",
-    "label": "Driftwood Coffee",
-    "alt": "Driftwood Coffee Co branded hoodie",
+    "label": "Peakline Scaffolding",
+    "alt": "Peakline Scaffolding back-print tee",
     "rotate": -1.7
   },
   {
     "src": "/images/past-work/work-11.jpg",
-    "label": "Peakline Scaffolding",
-    "alt": "Peakline Scaffolding back-print tee",
+    "label": "Hollow & Pine",
+    "alt": "Hollow & Pine Studio crewneck",
     "rotate": -0.85
   },
   {
     "src": "/images/past-work/work-12.jpg",
-    "label": "Hollow & Pine",
-    "alt": "Hollow & Pine Studio crewneck",
+    "label": "Redshift Athletics",
+    "alt": "Redshift Athletics navy hoodie",
     "rotate": 0
   },
   {
     "src": "/images/past-work/work-13.jpg",
-    "label": "Redshift Athletics",
-    "alt": "Redshift Athletics navy hoodie",
+    "label": "Prairie Volt",
+    "alt": "Prairie Volt Energy left-chest tee",
     "rotate": 0.85
   },
   {
     "src": "/images/past-work/work-14.jpg",
-    "label": "Prairie Volt",
-    "alt": "Prairie Volt Energy left-chest tee",
+    "label": "Stonehaven Brewing",
+    "alt": "Stonehaven Brewing branded hoodie",
     "rotate": 1.7
+  },
+  {
+    "src": "/images/past-work/work-15.jpg",
+    "label": "Marrow & Co",
+    "alt": "Marrow & Co kitchen brand crewneck",
+    "rotate": -1.7
+  },
+  {
+    "src": "/images/past-work/work-16.jpg",
+    "label": "Bluekiln Ceramics",
+    "alt": "Bluekiln Ceramics branded tee",
+    "rotate": -0.85
+  },
+  {
+    "src": "/images/past-work/work-17.jpg",
+    "label": "Fernvale Veterinary",
+    "alt": "Fernvale Veterinary branded hoodie",
+    "rotate": 0
+  },
+  {
+    "src": "/images/past-work/work-18.jpg",
+    "label": "Ashcroft Roofing",
+    "alt": "Ashcroft Roofing back-print tee",
+    "rotate": 0.85
+  },
+  {
+    "src": "/images/past-work/work-19.jpg",
+    "label": "Lumenfield Labs",
+    "alt": "Lumenfield Labs branded hoodie",
+    "rotate": 1.7
+  },
+  {
+    "src": "/images/past-work/work-20.jpg",
+    "label": "Brackish Outfit Co",
+    "alt": "Brackish Outfit Co branded tee",
+    "rotate": -1.7
   }
 ]
