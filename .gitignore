@@ -24,6 +24,9 @@
 .DS_Store
 *.pem
 
+# Raw client photo dumps (optimized copies live in public/images/past-work)
+public/images/past-work-source/
+
 # debug
 npm-debug.log*
 yarn-debug.log*

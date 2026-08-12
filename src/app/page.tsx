@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
-import { PageHero } from "@/components/PageHero";
+import { PastWorkHero } from "@/components/PastWorkHero";
 import { Steps } from "@/components/Steps";
 import { homeFaqs } from "@/lib/faqs";
 import {
@@ -52,16 +52,7 @@ export default function HomePage() {
         )}
       />
 
-      <PageHero
-        fullBleed
-        title="Company swag & event merch for Canada"
-        lead="Quality merch. Fast turnaround. Designed online, produced in Calgary, shipped coast to coast."
-        imageSrc="/images/hero-crew.jpg"
-        imageAlt="Close-up of custom printed hoodie fabric and stitching"
-        primaryLabel="Start a design"
-        secondaryHref="/how-it-works"
-        secondaryLabel="How it works"
-      />
+      <PastWorkHero />
 
       <section className="section">
         <div className="container">

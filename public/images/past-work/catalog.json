@@ -1,0 +1,104 @@
+[
+  {
+    "src": "/images/past-work/work-01.jpg",
+    "label": "Soft Bakes",
+    "alt": "Soft Bakes back print on black tee",
+    "rotate": -1.15
+  },
+  {
+    "src": "/images/past-work/work-02.jpg",
+    "label": "Soft Bakes",
+    "alt": "Soft Bakes left-chest print",
+    "rotate": 0
+  },
+  {
+    "src": "/images/past-work/work-03.jpg",
+    "label": "Prodigy Mechanical",
+    "alt": "Prodigy Mechanical custom tees",
+    "rotate": 1.15
+  },
+  {
+    "src": "/images/past-work/work-04.jpg",
+    "label": "Fiesta 2025",
+    "alt": "Lethbridge Fiesta Extravaganza tees",
+    "rotate": 2.3
+  },
+  {
+    "src": "/images/past-work/work-05.jpg",
+    "label": "Team kit",
+    "alt": "Custom team event tee print",
+    "rotate": -2.3
+  },
+  {
+    "src": "/images/past-work/work-06.jpg",
+    "label": "Shop run",
+    "alt": "Finished custom apparel on the bench",
+    "rotate": -1.15
+  },
+  {
+    "src": "/images/past-work/work-07.jpg",
+    "label": "Event merch",
+    "alt": "Custom event merchandise stack",
+    "rotate": 0
+  },
+  {
+    "src": "/images/past-work/work-08.jpg",
+    "label": "Brand drop",
+    "alt": "Custom printed brand apparel",
+    "rotate": 1.15
+  },
+  {
+    "src": "/images/past-work/work-09.jpg",
+    "label": "Press day",
+    "alt": "Fresh prints from the shop",
+    "rotate": 2.3
+  },
+  {
+    "src": "/images/past-work/work-10.jpg",
+    "label": "Color run",
+    "alt": "Colorful custom tee prints",
+    "rotate": -2.3
+  },
+  {
+    "src": "/images/past-work/work-11.jpg",
+    "label": "Bulk order",
+    "alt": "Bulk custom apparel order",
+    "rotate": -1.15
+  },
+  {
+    "src": "/images/past-work/work-12.jpg",
+    "label": "Client work",
+    "alt": "Client custom merch print",
+    "rotate": 0
+  },
+  {
+    "src": "/images/past-work/work-13.jpg",
+    "label": "Local brand",
+    "alt": "Local brand custom tee",
+    "rotate": 1.15
+  },
+  {
+    "src": "/images/past-work/work-14.jpg",
+    "label": "Finished stack",
+    "alt": "Finished custom shirts stacked",
+    "rotate": 2.3
+  },
+  {
+    "src": "/images/past-work/work-15.jpg",
+    "label": "Soft Bakes",
+    "alt": "Soft Bakes studio back print",
+    "rotate": -2.3
+  },
+  {
+    "src": "/images/past-work/work-16.jpg",
+    "label": "Soft Bakes",
+    "alt": "Soft Bakes studio chest print",
+    "rotate": -1.15
+  },
+  {
+    "src": "/images/past-work/work-17.jpg",
+    "label": "Soft Bakes",
+    "alt": "Soft Bakes design options",
+    "rotate": 0
+  }
+]
