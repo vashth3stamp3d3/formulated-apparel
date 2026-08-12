@@ -16,7 +16,7 @@
   display: grid;
   grid-template-rows: 1fr 1fr;
   gap: 0.55rem;
-  padding: 5.5rem 0 28vh;
+  padding: 4.25rem 0 28vh;
   align-content: stretch;
   pointer-events: none;
   /* Soft edge only — keep the work crisp, not foggy */
@@ -96,20 +96,30 @@
 
 .showcase {
   position: absolute;
-  top: clamp(1.25rem, 3vw, 2rem);
+  top: clamp(1.35rem, 2.4vw, 1.85rem);
   left: 50%;
   z-index: 2;
   margin: 0;
-  max-width: min(100% - 2rem, 18ch);
   transform: translateX(-50%);
   text-align: center;
-  font-size: clamp(2.6rem, 7.8vw, 5.6rem);
-  font-weight: 800;
-  letter-spacing: -0.05em;
-  line-height: 0.92;
+  white-space: nowrap;
+  font-size: clamp(0.72rem, 0.95vw, 0.82rem);
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  line-height: 1;
+  text-transform: uppercase;
   color: #111;
   pointer-events: none;
   animation: rise-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.showcase::after {
+  content: "";
+  display: block;
+  width: 2.5rem;
+  height: 1px;
+  margin: 0.85rem auto 0;
+  background: rgba(17, 17, 17, 0.35);
 }
 
 .shell {
@@ -240,7 +250,7 @@
 
   .film {
     grid-template-rows: 34vh 34vh;
-    padding: 5.25rem 0 34vh;
+    padding: 4.5rem 0 34vh;
     gap: 0.45rem;
   }
 
@@ -249,9 +259,13 @@
   }
 
   .showcase {
-    top: 0.9rem;
-    max-width: min(100% - 1.5rem, 14ch);
-    font-size: clamp(2.15rem, 10vw, 3.25rem);
+    top: 1rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.28em;
+  }
+
+  .showcase::after {
+    margin-top: 0.7rem;
   }
 
   .veil {
