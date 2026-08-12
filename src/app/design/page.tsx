@@ -6,9 +6,9 @@ import { site } from "@/lib/site";
 import styles from "./design.module.css";
 
 export const metadata: Metadata = {
-  title: "Design Merch & Request a Quote",
+  title: "Design Merch & Checkout",
   description:
-    "Design custom company or event merch online, preview lifestyle mockups, and request a quote from Formulated Apparel.",
+    "Design custom company or event merch online, preview lifestyle mockups, and checkout on Formulated Prints.",
   alternates: { canonical: "/design" },
 };
 
@@ -18,8 +18,8 @@ export default function DesignPage() {
       <JsonLd
         data={graphSchema(
           serviceSchema(
-            "Custom merch quote designer",
-            "Design apparel online and request a bulk quote.",
+            "Custom merch designer",
+            "Design apparel online and checkout on Formulated Prints.",
             `${site.url}/design`,
           ),
           breadcrumbSchema([
@@ -31,10 +31,10 @@ export default function DesignPage() {
       <section className={styles.intro}>
         <div className="container">
           <p className="section__eyebrow">Merch builder</p>
-          <h1 className="section__title">Design your merch, then request a quote</h1>
+          <h1 className="section__title">Design your merch, then checkout</h1>
           <p className="section__lead">
-            No checkout. Upload art, place it on apparel, preview mockups, and
-            send sizes/quantities to our Calgary shop.
+            Upload art, place it on apparel, preview mockups, and add to your
+            Formulated Prints cart to finish checkout.
           </p>
         </div>
       </section>

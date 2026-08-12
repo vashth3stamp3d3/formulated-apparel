@@ -1,14 +1,19 @@
 "use client";
 
-import { useEffect, useId } from "react";
+import { useEffect } from "react";
 import { site } from "@/lib/site";
 import styles from "./MockupDesigner.module.css";
 
+/** Bump when Mockup App editor UX ships so browsers skip stale CDN caches. */
+const EDITOR_ASSET_VERSION = "20260812c";
+
+const mockupApp = site.mockupAppUrl.replace(/\/+$/, "");
+
 const editorData = {
-  appUrl: site.mockupAppUrl,
-  quoteMode: true,
-  quoteApiUrl: "/api/quote",
-  productsUrl: "/api/products",
+  appUrl: mockupApp,
+  // Shopify checkout on formulatedprints.com (not quote mode).
+  shopifyCartHost: site.shopifyCatalogUrl.replace(/\/+$/, ""),
+  productsUrl: `${mockupApp}/api/shopify-products`,
   productId: null,
   productPrice: 0,
   productTitle: "",
@@ -18,8 +23,6 @@ const editorData = {
 };
 
 export function MockupDesigner() {
-  const instanceId = useId();
-
   useEffect(() => {
     let dataEl = document.getElementById("mockup-editor-data");
     if (!dataEl) {
@@ -30,24 +33,26 @@ export function MockupDesigner() {
     }
     dataEl.textContent = JSON.stringify(editorData);
 
-    if (!document.getElementById("mockup-editor-css")) {
-      const link = document.createElement("link");
+    // Always pull CSS/JS from Mockup App Railway so apparel stays in sync.
+    let link = document.getElementById("mockup-editor-css") as HTMLLinkElement | null;
+    if (!link) {
+      link = document.createElement("link");
       link.id = "mockup-editor-css";
       link.rel = "stylesheet";
-      link.href = "/mockup/mockup-editor.css";
       document.head.appendChild(link);
     }
+    link.href = `${mockupApp}/api/mockup-editor-css?v=${encodeURIComponent(EDITOR_ASSET_VERSION)}`;
 
     document.getElementById("mockup-editor-js")?.remove();
     const script = document.createElement("script");
     script.id = "mockup-editor-js";
-    script.src = `/mockup/mockup-editor.js?v=${encodeURIComponent(instanceId)}`;
+    script.src = `${mockupApp}/api/mockup-editor-js?v=${encodeURIComponent(EDITOR_ASSET_VERSION)}`;
     document.body.appendChild(script);
 
     return () => {
       script.remove();
     };
-  }, [instanceId]);
+  }, []);
 
   return (
     <div className={styles.wrap}>
@@ -62,7 +67,9 @@ export function MockupDesigner() {
             <div className="mockup-bento-heading">
               <p className="mockup-bento-eyebrow">Custom merch</p>
               <h1 className="mockup-editor-title">Design Your Product</h1>
-              <p className="mockup-bento-lead">Tap, upload, place, request a quote.</p>
+              <p className="mockup-bento-lead">
+                Tap, upload, place, then checkout on Formulated Prints.
+              </p>
             </div>
             <nav className="mockup-progress-rail" aria-label="Builder progress">
               <button type="button" className="progress-chip is-current" data-scroll-target="bento-product">
@@ -75,7 +82,7 @@ export function MockupDesigner() {
               </button>
               <button type="button" className="progress-chip" data-scroll-target="order-summary">
                 <span className="progress-chip-number">3</span>
-                <span>Quote</span>
+                <span>Cart</span>
               </button>
             </nav>
           </header>
@@ -284,25 +291,27 @@ export function MockupDesigner() {
               </div>
             </main>
 
-            <aside className="mockup-order-rail" id="order-summary" aria-label="Build your quote">
+            <aside className="mockup-order-rail" id="order-summary" aria-label="Build your order">
               <div className="order-rail-inner">
                 <header className="order-rail-header">
                   <div>
                     <p className="bento-step-label">3</p>
-                    <h2>Your quote</h2>
-                    <p className="bento-section-summary">Pick options, then request a quote.</p>
+                    <h2>Your order</h2>
+                    <p className="bento-section-summary">
+                      Pick options, then add to Formulated Prints cart.
+                    </p>
                   </div>
                   <button
                     type="button"
                     className="order-sheet-close"
                     id="order-sheet-close"
-                    aria-label="Close quote summary"
+                    aria-label="Close order summary"
                   >
                     ×
                   </button>
                 </header>
                 <div className="order-cart-glance" style={{ display: "none" }}>
-                  <span id="sidebar-cart-count">Quote draft</span>
+                  <span id="sidebar-cart-count">Cart</span>
                   <strong id="sidebar-cart-total">$0.00</strong>
                 </div>
                 <div
@@ -333,7 +342,7 @@ export function MockupDesigner() {
                 </div>
                 <div className="order-final-actions">
                   <button type="button" className="btn-add-to-cart" id="btn-add-to-cart" disabled>
-                    Request a quote
+                    Add to cart
                   </button>
                   <div className="order-cart-links" style={{ display: "none" }} />
                 </div>
@@ -345,7 +354,7 @@ export function MockupDesigner() {
             type="button"
             className="order-sheet-backdrop"
             id="order-sheet-backdrop"
-            aria-label="Close quote summary"
+            aria-label="Close order summary"
             hidden
           />
           <div className="mobile-order-bar" id="mobile-order-bar">
@@ -359,7 +368,7 @@ export function MockupDesigner() {
               aria-controls="order-summary"
               aria-expanded="false"
             >
-              Review quote
+              Review order
             </button>
           </div>
         </div>
