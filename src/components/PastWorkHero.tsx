@@ -6,7 +6,7 @@ import styles from "./PastWorkHero.module.css";
 function FilmRow({
   items,
   reverse = false,
-  duration = 55,
+  duration = 80,
 }: {
   items: PastWorkItem[];
   reverse?: boolean;
@@ -21,18 +21,14 @@ function FilmRow({
     >
       <div className={styles.track}>
         {loop.map((item, index) => (
-          <figure
-            key={`${item.src}-${index}`}
-            className={styles.frame}
-            style={{ ["--tilt" as string]: `${item.rotate}deg` }}
-          >
+          <figure key={`${item.src}-${index}`} className={styles.frame}>
             <Image
               src={item.src}
               alt=""
-              width={720}
-              height={900}
+              width={800}
+              height={1000}
               className={styles.frameImg}
-              sizes="(max-width: 700px) 58vw, 28vw"
+              sizes="(max-width: 700px) 62vw, 30vw"
               priority={index < 4}
             />
           </figure>
@@ -48,8 +44,8 @@ export function PastWorkHero() {
   return (
     <section className={styles.hero} aria-label="Past work">
       <div className={styles.film} aria-hidden="true">
-        <FilmRow items={row1} duration={64} />
-        <FilmRow items={row2} reverse duration={72} />
+        <FilmRow items={row1} duration={90} />
+        <FilmRow items={row2} reverse duration={105} />
       </div>
 
       <div className={styles.veil} aria-hidden="true" />
@@ -59,17 +55,16 @@ export function PastWorkHero() {
       <div className={styles.shell}>
         <div className={styles.copy}>
           <p className={styles.brand}>formulated apparel</p>
-          <h1>Company &amp; event apparel, printed properly</h1>
+          <h1>Printed in Calgary for brands that care how it looks.</h1>
           <p className={styles.lead}>
-            Calgary production for brands that notice the details — clean
-            registration, solid blanks, timelines you can put on a calendar.
+            Clean registration. Solid blanks. Timelines you can calendar.
           </p>
           <div className={styles.actions}>
-            <Link href="/design" className="btn btn--accent">
-              Build a mockup
-            </Link>
-            <Link href="/contact" className="btn btn--ghost">
+            <Link href="/contact" className={`btn btn--primary ${styles.cta}`}>
               Request a quote
+            </Link>
+            <Link href="/design" className={styles.secondary}>
+              Build a mockup
             </Link>
           </div>
         </div>

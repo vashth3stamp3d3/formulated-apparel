@@ -1,15 +1,12 @@
 .hero {
   position: relative;
   isolation: isolate;
-  min-height: min(100svh, 920px);
+  min-height: min(100svh, 940px);
   overflow: hidden;
   display: grid;
   align-items: end;
-  background:
-    radial-gradient(1000px 520px at 70% 10%, rgba(240, 215, 188, 0.55), transparent 62%),
-    radial-gradient(800px 420px at 8% 80%, rgba(154, 242, 249, 0.18), transparent 55%),
-    linear-gradient(180deg, #f3ebe0 0%, #efe6d8 45%, #e8dfd2 100%);
-  border-bottom: 1px solid var(--color-border);
+  background: #ebe2d6;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .film {
@@ -18,15 +15,16 @@
   z-index: 0;
   display: grid;
   grid-template-rows: 1fr 1fr;
-  gap: clamp(0.65rem, 1.4vw, 1.1rem);
-  padding: clamp(0.75rem, 1.6vw, 1.25rem) 0;
-  align-content: center;
+  gap: 0.55rem;
+  padding: 5.5rem 0 28vh;
+  align-content: stretch;
   pointer-events: none;
+  /* Soft edge only — keep the work crisp, not foggy */
   mask-image: linear-gradient(
     90deg,
     transparent 0%,
-    #000 6%,
-    #000 94%,
+    #000 3%,
+    #000 97%,
     transparent 100%
   );
 }
@@ -39,9 +37,9 @@
 .track {
   display: flex;
   width: max-content;
-  gap: clamp(0.65rem, 1.4vw, 1.15rem);
+  gap: 0.55rem;
   height: 100%;
-  animation: scroll-x var(--strip-duration, 60s) linear infinite;
+  animation: scroll-x var(--strip-duration, 90s) linear infinite;
   will-change: transform;
 }
 
@@ -55,7 +53,6 @@
   width: auto;
   aspect-ratio: 4 / 5;
   flex: 0 0 auto;
-  transform: rotate(var(--tilt, 0deg));
 }
 
 .frameImg {
@@ -63,12 +60,13 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 4px;
-  background: #e7ddd0;
-  box-shadow: 0 18px 40px rgba(40, 28, 16, 0.14);
-  filter: contrast(1.03) saturate(0.96) brightness(1.01);
+  border-radius: 2px;
+  background: #ddd3c5;
+  box-shadow: 0 12px 28px rgba(28, 20, 12, 0.12);
+  filter: contrast(1.04) saturate(0.98);
 }
 
+/* Tight scrim only where type lives — rest of the film stays premium-sharp */
 .veil {
   position: absolute;
   inset: 0;
@@ -77,42 +75,41 @@
   background:
     linear-gradient(
       180deg,
-      rgba(243, 235, 224, 0.82) 0%,
-      rgba(243, 235, 224, 0.28) 14%,
-      transparent 28%
-    ),
-    linear-gradient(
-      100deg,
-      rgba(243, 235, 224, 0.97) 0%,
-      rgba(243, 235, 224, 0.9) 22%,
-      rgba(243, 235, 224, 0.35) 42%,
-      transparent 62%
+      rgba(235, 226, 214, 0.72) 0%,
+      rgba(235, 226, 214, 0.2) 10%,
+      transparent 22%
     ),
     linear-gradient(
       180deg,
-      transparent 55%,
-      rgba(232, 223, 210, 0.35) 78%,
-      rgba(232, 223, 210, 0.78) 100%
+      transparent 48%,
+      rgba(235, 226, 214, 0.55) 72%,
+      rgba(235, 226, 214, 0.94) 100%
+    ),
+    linear-gradient(
+      95deg,
+      rgba(235, 226, 214, 0.94) 0%,
+      rgba(235, 226, 214, 0.78) 18%,
+      rgba(235, 226, 214, 0.22) 36%,
+      transparent 52%
     );
 }
 
 .showcase {
   position: absolute;
-  top: clamp(1.1rem, 2.8vw, 1.85rem);
-  left: 0;
-  right: 0;
+  top: clamp(1.25rem, 3vw, 2rem);
+  left: 50%;
   z-index: 2;
   margin: 0;
-  padding: 0 clamp(1rem, 3vw, 1.5rem);
+  max-width: min(100% - 2rem, 18ch);
+  transform: translateX(-50%);
   text-align: center;
-  font-size: clamp(2.4rem, 7.2vw, 5.25rem);
+  font-size: clamp(2.6rem, 7.8vw, 5.6rem);
   font-weight: 800;
-  letter-spacing: -0.045em;
-  line-height: 0.95;
+  letter-spacing: -0.05em;
+  line-height: 0.92;
   color: #111;
-  text-wrap: balance;
   pointer-events: none;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+  animation: rise-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .shell {
@@ -120,43 +117,68 @@
   z-index: 2;
   width: min(100% - 2rem, 1280px);
   margin: 0 auto;
-  padding: clamp(5.5rem, 12vh, 8rem) 0 clamp(2.25rem, 5vh, 3.5rem);
+  padding: 0 0 clamp(2rem, 4.5vh, 3rem);
+  animation: rise-in 1s 0.08s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .copy {
-  max-width: 38rem;
+  max-width: 28rem;
 }
 
 .brand {
-  margin: 0 0 0.85rem;
-  font-size: clamp(2.35rem, 6.5vw, 4.1rem);
+  margin: 0 0 0.55rem;
+  font-size: clamp(1.85rem, 3.6vw, 2.65rem);
   font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 0.95;
+  letter-spacing: -0.035em;
+  line-height: 1;
   color: #111;
 }
 
 .copy h1 {
-  margin: 0 0 0.9rem;
-  font-size: clamp(1.55rem, 3.2vw, 2.35rem);
-  letter-spacing: -0.03em;
-  line-height: 1.12;
-  max-width: 16ch;
-  color: #1a1a1a;
+  margin: 0 0 0.65rem;
+  font-size: clamp(1.2rem, 2.1vw, 1.55rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  max-width: 22ch;
+  color: #1c1c1c;
 }
 
 .lead {
-  margin: 0 0 1.6rem;
-  max-width: 34ch;
-  font-size: clamp(1rem, 1.7vw, 1.15rem);
-  line-height: 1.55;
-  color: #4a453f;
+  margin: 0 0 1.35rem;
+  max-width: 32ch;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: #5a544c;
 }
 
 .actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  align-items: center;
+  gap: 0.85rem 1.25rem;
+}
+
+.cta {
+  min-height: 2.85rem;
+  padding-inline: 1.35rem;
+  border-radius: 999px;
+  box-shadow: none;
+}
+
+.secondary {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #111;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.35);
+  padding-bottom: 0.1rem;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.secondary:hover {
+  border-bottom-color: #111;
+  color: #111;
 }
 
 @keyframes scroll-x {
@@ -168,8 +190,39 @@
   }
 }
 
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.shell {
+  animation-name: rise-in-shell;
+}
+
+@keyframes rise-in-shell {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .track {
+    animation: none;
+  }
+
+  .showcase,
+  .shell {
     animation: none;
   }
 
@@ -182,41 +235,50 @@
 
 @media (max-width: 860px) {
   .hero {
-    min-height: min(100svh, 860px);
+    min-height: min(100svh, 880px);
   }
 
   .film {
-    grid-template-rows: 38vh 38vh;
-    padding-top: 5.75rem;
-    align-content: start;
+    grid-template-rows: 34vh 34vh;
+    padding: 5.25rem 0 34vh;
+    gap: 0.45rem;
+  }
+
+  .track {
+    gap: 0.45rem;
   }
 
   .showcase {
-    top: 0.85rem;
-    font-size: clamp(2rem, 9.5vw, 3.1rem);
+    top: 0.9rem;
+    max-width: min(100% - 1.5rem, 14ch);
+    font-size: clamp(2.15rem, 10vw, 3.25rem);
   }
 
   .veil {
-    background: linear-gradient(
-      180deg,
-      transparent 0%,
-      transparent 42%,
-      rgba(243, 235, 224, 0.72) 68%,
-      rgba(232, 223, 210, 0.96) 100%
-    );
+    background:
+      linear-gradient(
+        180deg,
+        rgba(235, 226, 214, 0.55) 0%,
+        transparent 16%
+      ),
+      linear-gradient(
+        180deg,
+        transparent 40%,
+        rgba(235, 226, 214, 0.75) 68%,
+        rgba(235, 226, 214, 0.97) 100%
+      );
   }
 
   .shell {
     width: min(100% - 1.5rem, 1280px);
-    padding-top: 0;
-    padding-bottom: 1.75rem;
+    padding-bottom: 1.6rem;
   }
 
   .brand {
-    font-size: clamp(2.1rem, 10vw, 3rem);
+    font-size: clamp(1.7rem, 7.5vw, 2.2rem);
   }
 
   .copy h1 {
-    max-width: 18ch;
+    max-width: 24ch;
   }
 }
