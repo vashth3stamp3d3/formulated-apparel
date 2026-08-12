@@ -38,7 +38,7 @@ export default function EventSwagPage() {
         title="Event swag that ties the whole room together"
         lead="Staff tees, volunteer hoodies, hats, and giveaway packs with matching artwork and dependable timelines."
         imageSrc="/images/event-swag.jpg"
-        imageAlt="Event merch table with hoodies tees and caps"
+        imageAlt="Stacked event hoodies, tees, and caps ready for pickup"
       />
       <section className={styles.content}>
         <div className={`container ${styles.grid}`}>

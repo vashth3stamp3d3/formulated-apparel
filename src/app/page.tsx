@@ -57,7 +57,7 @@ export default function HomePage() {
         title="Company swag & event merch for Canada"
         lead="Quality merch. Fast turnaround. Designed online, produced in Calgary, shipped coast to coast."
         imageSrc="/images/hero-crew.jpg"
-        imageAlt="Team wearing custom branded apparel"
+        imageAlt="Close-up of custom printed hoodie fabric and stitching"
         primaryLabel="Start a design"
         secondaryHref="/how-it-works"
         secondaryLabel="How it works"
@@ -127,7 +127,7 @@ export default function HomePage() {
             <h2 className="section__title">Alberta roots. National reach.</h2>
             <p className="section__lead">
               Formulated Apparel is the company and event merch line from
-              FormulatedPrints — the same Calgary team trusted for quality print
+              FormulatedPrints — the same Calgary shop trusted for quality print
               and quick production.
             </p>
             <div className={styles.actionsRow}>
@@ -142,7 +142,7 @@ export default function HomePage() {
           <div className={styles.proofMedia}>
             <Image
               src="/images/alberta-crew.jpg"
-              alt="Friends in matching custom hoodies outdoors in Alberta"
+              alt="Stacks of custom hoodies and apparel in a Calgary print shop"
               fill
               sizes="(max-width: 900px) 100vw, 45vw"
             />

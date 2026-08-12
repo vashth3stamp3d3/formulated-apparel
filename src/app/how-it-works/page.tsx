@@ -28,7 +28,7 @@ export default function HowItWorksPage() {
         title="Design first. Quote next. Print with a plan."
         lead="A simple workflow for company and event apparel — built for bulk orders across Canada."
         imageSrc="/images/hero-crew.jpg"
-        imageAlt="Team in custom branded apparel"
+        imageAlt="Macro detail of custom printed hoodie quality"
         primaryHref="/design"
         primaryLabel="Open the designer"
       />
@@ -42,9 +42,9 @@ export default function HowItWorksPage() {
           <div className={styles.copy}>
             <h2>What happens after you request a quote</h2>
             <p>
-              Our Calgary team reviews your mockups, garment choices, sizes, and
-              quantities. We confirm pricing, production timing, and shipping or
-              pickup options.
+              We review your mockups, garment choices, sizes, and quantities,
+              then confirm pricing, production timing, and shipping or pickup
+              options.
             </p>
             <ul>
               <li>Art and placement review</li>

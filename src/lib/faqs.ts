@@ -12,7 +12,7 @@ export const homeFaqs = [
   {
     question: "How does the quote process work?",
     answer:
-      "Design your merch in our online builder, add sizes and quantities, then submit a quote request. Our team replies with pricing and timing—usually within one business day.",
+      "Design your merch in our online builder, add sizes and quantities, then submit a quote request. We reply with pricing and timing—usually within one business day.",
   },
   {
     question: "What is a typical turnaround?",

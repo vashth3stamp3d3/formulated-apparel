@@ -59,7 +59,7 @@ export default async function LocationPage({ params }: Props) {
             ? "/images/alberta-crew.jpg"
             : "/images/hero-crew.jpg"
         }
-        imageAlt={`Custom merch for ${location.name}`}
+        imageAlt={`Custom apparel product detail for ${location.name} orders`}
       />
       <section className={styles.content}>
         <div className={`container ${styles.grid}`}>

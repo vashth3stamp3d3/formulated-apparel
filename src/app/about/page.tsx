@@ -26,9 +26,9 @@ export default function AboutPage() {
       />
       <PageHero
         title="Quality merch from a Calgary print shop"
-        lead="Formulated Apparel is how companies and event organizers order branded apparel from the FormulatedPrints team."
+        lead="Formulated Apparel is how companies and event organizers order branded apparel from the FormulatedPrints shop in Calgary."
         imageSrc="/images/alberta-crew.jpg"
-        imageAlt="People wearing matching custom hoodies in Alberta"
+        imageAlt="Custom apparel stacks in a Calgary shop with a Canadian flag"
       />
       <section className={styles.content}>
         <div className={`container ${styles.grid}`}>

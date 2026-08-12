@@ -39,7 +39,7 @@ export default function CustomMerchPage() {
         title="Custom merch with live mockups"
         lead="Upload your logo, place it on apparel, preview lifestyle shots, and send a quote — no checkout required."
         imageSrc="/images/custom-merch.jpg"
-        imageAlt="Person designing custom merch on a phone"
+        imageAlt="Phone mockup beside a custom printed hoodie on a shop table"
         primaryHref="/design"
         primaryLabel="Open designer"
       />

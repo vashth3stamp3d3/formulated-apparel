@@ -34,7 +34,7 @@ export default function DesignPage() {
           <h1 className="section__title">Design your merch, then request a quote</h1>
           <p className="section__lead">
             No checkout. Upload art, place it on apparel, preview mockups, and
-            send sizes/quantities to our Calgary team.
+            send sizes/quantities to our Calgary shop.
           </p>
         </div>
       </section>
