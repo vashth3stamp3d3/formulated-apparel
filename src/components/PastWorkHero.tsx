@@ -44,8 +44,8 @@ export function PastWorkHero() {
   return (
     <section className={styles.hero} aria-label="Past work">
       <div className={styles.film} aria-hidden="true">
-        <FilmRow items={row1} duration={90} />
-        <FilmRow items={row2} reverse duration={105} />
+        <FilmRow items={row1} duration={140} />
+        <FilmRow items={row2} reverse duration={160} />
       </div>
 
       <div className={styles.veil} aria-hidden="true" />
