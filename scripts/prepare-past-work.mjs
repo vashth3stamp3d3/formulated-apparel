@@ -3,79 +3,96 @@ import path from "node:path";
 import sharp from "sharp";
 
 const root = path.resolve("public/images");
-const sourceDir = path.join(root, "past-work-source");
 const outDir = path.join(root, "past-work");
 const assetsDir = path.resolve(
   process.env.USERPROFILE || "",
   ".cursor/projects/c-Users-jerro-Desktop-formulated-apparel/assets",
 );
 
-const picks = [
-  { file: "softbakes-back.png", label: "Soft Bakes", alt: "Soft Bakes back print on black tee" },
-  { file: "softbakes-chest.png", label: "Soft Bakes", alt: "Soft Bakes left-chest print" },
-  { file: "20250305_153820.jpg", label: "Prodigy Mechanical", alt: "Prodigy Mechanical custom tees" },
-  { file: "20250710_144750.jpg", label: "Fiesta 2025", alt: "Lethbridge Fiesta Extravaganza tees" },
-  { file: "PXL_20240728_173135877.PORTRAIT.jpg", label: "Team kit", alt: "Custom team event tee print" },
-  { file: "20250308_151923.jpg", label: "Shop run", alt: "Finished custom apparel on the bench" },
-  { file: "20250612_161449.jpg", label: "Event merch", alt: "Custom event merchandise stack" },
-  { file: "20250212_120128.jpg", label: "Brand drop", alt: "Custom printed brand apparel" },
-  { file: "20250317_115138.jpg", label: "Press day", alt: "Fresh prints from the shop" },
-  { file: "20250710_144810.jpg", label: "Color run", alt: "Colorful custom tee prints" },
-  { file: "20260313_152556.jpg", label: "Bulk order", alt: "Bulk custom apparel order" },
-  { file: "20250322_150250.jpg", label: "Client work", alt: "Client custom merch print" },
-  { file: "IMG-20240910-WA0009.jpg", label: "Local brand", alt: "Local brand custom tee" },
-  { file: "20260314_144201.jpg", label: "Finished stack", alt: "Finished custom shirts stacked" },
-];
-
-const studioExtras = [
-  { file: "studio-softbakes-01.jpg", label: "Soft Bakes", alt: "Soft Bakes studio back print" },
-  { file: "studio-softbakes-02.jpg", label: "Soft Bakes", alt: "Soft Bakes studio chest print" },
-  { file: "studio-softbakes-03.jpg", label: "Soft Bakes", alt: "Soft Bakes design options" },
+/** Curated studio re-shoots only — real client work, consistent light. */
+const studio = [
+  {
+    file: "studio-01-softbakes-back.jpg",
+    label: "Soft Bakes",
+    alt: "Soft Bakes cinnamon roll back print on black tee",
+  },
+  {
+    file: "studio-02-softbakes-chest.jpg",
+    label: "Soft Bakes",
+    alt: "Soft Bakes left-chest print on black tee",
+  },
+  {
+    file: "studio-03-prodigy.jpg",
+    label: "Prodigy Mechanical",
+    alt: "Prodigy Mechanical branded tees",
+  },
+  {
+    file: "studio-04-fiesta.jpg",
+    label: "Fiesta 2025",
+    alt: "Lethbridge Fiesta Extravaganza event tees",
+  },
+  {
+    file: "studio-05-meta.jpg",
+    label: "META",
+    alt: "META gear logo hoodie",
+  },
+  {
+    file: "studio-06-team.jpg",
+    label: "FBBC",
+    alt: "FBBC team event tee",
+  },
+  {
+    file: "studio-07-softbakes-alt.jpg",
+    label: "Soft Bakes",
+    alt: "Soft Bakes branded black tee",
+  },
+  {
+    file: "studio-08-identity.jpg",
+    label: "Identity Crisis",
+    alt: "Identity Crisis graphic tee print",
+  },
+  {
+    file: "studio-09-formulated.jpg",
+    label: "Formulated",
+    alt: "Formulated constellation crewneck",
+  },
+  {
+    file: "studio-10-legacy.jpg",
+    label: "Legacy Decks",
+    alt: "Legacy Decks Ltd company hoodie order",
+  },
 ];
 
 await fs.mkdir(outDir, { recursive: true });
 
+// Clear previous web outputs so stale filler shots do not linger.
+for (const entry of await fs.readdir(outDir)) {
+  if (entry.startsWith("work-") && entry.endsWith(".jpg")) {
+    await fs.unlink(path.join(outDir, entry));
+  }
+}
+
 const catalog = [];
 
-async function processOne(srcPath, outName, meta, index) {
+let i = 0;
+for (const item of studio) {
+  const src = path.join(assetsDir, item.file);
+  await fs.access(src);
+  const outName = `work-${String(++i).padStart(2, "0")}.jpg`;
   const outPath = path.join(outDir, outName);
-  await sharp(srcPath)
+  await sharp(src)
     .rotate()
-    .resize({ width: 1100, height: 1400, fit: "cover", position: "centre" })
-    .modulate({ brightness: 1.02, saturation: 0.96 })
-    .jpeg({ quality: 78, mozjpeg: true })
+    .resize({ width: 1200, height: 1500, fit: "cover", position: "centre" })
+    .modulate({ brightness: 1.01, saturation: 0.97 })
+    .jpeg({ quality: 82, mozjpeg: true })
     .toFile(outPath);
   catalog.push({
     src: `/images/past-work/${outName}`,
-    label: meta.label,
-    alt: meta.alt,
-    rotate: ((index % 5) - 2) * 1.15,
+    label: item.label,
+    alt: item.alt,
+    rotate: ((i % 5) - 2) * 0.85,
   });
-}
-
-let i = 0;
-for (const pick of picks) {
-  const src = path.join(sourceDir, pick.file);
-  try {
-    await fs.access(src);
-    const outName = `work-${String(++i).padStart(2, "0")}.jpg`;
-    await processOne(src, outName, pick, i);
-    console.log("ok", outName, pick.file);
-  } catch (e) {
-    console.warn("skip", pick.file, e.message);
-  }
-}
-
-for (const extra of studioExtras) {
-  const src = path.join(assetsDir, extra.file);
-  try {
-    await fs.access(src);
-    const outName = `work-${String(++i).padStart(2, "0")}.jpg`;
-    await processOne(src, outName, extra, i);
-    console.log("ok", outName, extra.file);
-  } catch (e) {
-    console.warn("skip studio", extra.file, e.message);
-  }
+  console.log("ok", outName, item.file);
 }
 
 await fs.writeFile(
