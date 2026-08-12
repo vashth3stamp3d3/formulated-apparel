@@ -1,30 +1,55 @@
 .hero {
   position: relative;
   isolation: isolate;
-  min-height: min(100svh, 940px);
-  overflow: hidden;
   display: grid;
-  align-items: end;
+  grid-template-rows: minmax(0, 1fr) auto;
+  min-height: min(100svh, 980px);
   background: #ebe2d6;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.stage {
+  position: relative;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  padding: 0.85rem 0 0.65rem;
+}
+
+.showcase {
+  position: relative;
+  z-index: 2;
+  margin: 0 0 0.65rem;
+  text-align: center;
+  white-space: nowrap;
+  font-size: clamp(0.72rem, 0.9vw, 0.8rem);
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #111;
+}
+
+.showcase::after {
+  content: "";
+  display: block;
+  width: 2.25rem;
+  height: 1px;
+  margin: 0.55rem auto 0;
+  background: rgba(17, 17, 17, 0.3);
 }
 
 .film {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
+  min-height: 0;
   display: grid;
   grid-template-rows: 1fr 1fr;
-  gap: 0.55rem;
-  padding: 4.25rem 0 28vh;
-  align-content: stretch;
-  pointer-events: none;
-  /* Soft edge only — keep the work crisp, not foggy */
+  gap: 0.5rem;
   mask-image: linear-gradient(
     90deg,
     transparent 0%,
-    #000 3%,
-    #000 97%,
+    #000 2.5%,
+    #000 97.5%,
     transparent 100%
   );
 }
@@ -37,7 +62,7 @@
 .track {
   display: flex;
   width: max-content;
-  gap: 0.55rem;
+  gap: 0.5rem;
   height: 100%;
   animation: scroll-x var(--strip-duration, 90s) linear infinite;
   will-change: transform;
@@ -62,104 +87,60 @@
   object-fit: cover;
   border-radius: 2px;
   background: #ddd3c5;
-  box-shadow: 0 12px 28px rgba(28, 20, 12, 0.12);
+  box-shadow: 0 10px 24px rgba(28, 20, 12, 0.12);
   filter: contrast(1.04) saturate(0.98);
 }
 
-/* Tight scrim only where type lives — rest of the film stays premium-sharp */
-.veil {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(235, 226, 214, 0.72) 0%,
-      rgba(235, 226, 214, 0.2) 10%,
-      transparent 22%
-    ),
-    linear-gradient(
-      180deg,
-      transparent 48%,
-      rgba(235, 226, 214, 0.55) 72%,
-      rgba(235, 226, 214, 0.94) 100%
-    ),
-    linear-gradient(
-      95deg,
-      rgba(235, 226, 214, 0.94) 0%,
-      rgba(235, 226, 214, 0.78) 18%,
-      rgba(235, 226, 214, 0.22) 36%,
-      transparent 52%
-    );
-}
-
-.showcase {
-  position: absolute;
-  top: clamp(1.35rem, 2.4vw, 1.85rem);
-  left: 50%;
+/* Solid band = readable type, no milky overlay fighting the film */
+.band {
+  position: relative;
   z-index: 2;
-  margin: 0;
-  transform: translateX(-50%);
-  text-align: center;
-  white-space: nowrap;
-  font-size: clamp(0.72rem, 0.95vw, 0.82rem);
-  font-weight: 600;
-  letter-spacing: 0.34em;
-  line-height: 1;
-  text-transform: uppercase;
-  color: #111;
-  pointer-events: none;
-  animation: rise-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-.showcase::after {
-  content: "";
-  display: block;
-  width: 2.5rem;
-  height: 1px;
-  margin: 0.85rem auto 0;
-  background: rgba(17, 17, 17, 0.35);
+  background: #f4eee5;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 -18px 40px rgba(235, 226, 214, 0.65);
 }
 
 .shell {
-  position: relative;
-  z-index: 2;
   width: min(100% - 2rem, 1280px);
   margin: 0 auto;
-  padding: 0 0 clamp(2rem, 4.5vh, 3rem);
-  animation: rise-in 1s 0.08s cubic-bezier(0.22, 1, 0.36, 1) both;
+  padding: clamp(1.35rem, 2.4vw, 1.85rem) 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.25rem 2rem;
 }
 
 .copy {
-  max-width: 28rem;
+  max-width: 36rem;
+  flex: 1 1 18rem;
 }
 
 .brand {
-  margin: 0 0 0.55rem;
-  font-size: clamp(1.85rem, 3.6vw, 2.65rem);
+  margin: 0 0 0.4rem;
+  font-size: clamp(2rem, 3.8vw, 2.85rem);
   font-weight: 800;
   letter-spacing: -0.035em;
-  line-height: 1;
+  line-height: 0.98;
   color: #111;
 }
 
 .copy h1 {
-  margin: 0 0 0.65rem;
-  font-size: clamp(1.2rem, 2.1vw, 1.55rem);
+  margin: 0 0 0.45rem;
+  font-size: clamp(1.15rem, 1.9vw, 1.45rem);
   font-weight: 600;
   letter-spacing: -0.02em;
-  line-height: 1.25;
-  max-width: 22ch;
-  color: #1c1c1c;
+  line-height: 1.3;
+  max-width: 28ch;
+  color: #1a1a1a;
 }
 
 .lead {
-  margin: 0 0 1.35rem;
-  max-width: 32ch;
-  font-size: 0.98rem;
+  margin: 0;
+  max-width: 40ch;
+  font-size: 1.02rem;
   line-height: 1.5;
-  color: #5a544c;
+  color: #4a453f;
 }
 
 .actions {
@@ -167,11 +148,13 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0.85rem 1.25rem;
+  flex: 0 0 auto;
+  padding-bottom: 0.15rem;
 }
 
 .cta {
-  min-height: 2.85rem;
-  padding-inline: 1.35rem;
+  min-height: 2.9rem;
+  padding-inline: 1.4rem;
   border-radius: 999px;
   box-shadow: none;
 }
@@ -183,12 +166,11 @@
   text-decoration: none;
   border-bottom: 1px solid rgba(17, 17, 17, 0.35);
   padding-bottom: 0.1rem;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  transition: border-color 0.2s ease;
 }
 
 .secondary:hover {
   border-bottom-color: #111;
-  color: #111;
 }
 
 @keyframes scroll-x {
@@ -200,99 +182,53 @@
   }
 }
 
-@keyframes rise-in {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-}
-
-.shell {
-  animation-name: rise-in-shell;
-}
-
-@keyframes rise-in-shell {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .track {
-    animation: none;
-  }
-
-  .showcase,
-  .shell {
     animation: none;
   }
 
   .film {
     overflow-x: auto;
     mask-image: none;
-    pointer-events: auto;
   }
 }
 
 @media (max-width: 860px) {
   .hero {
-    min-height: min(100svh, 880px);
+    min-height: min(100svh, 900px);
+  }
+
+  .stage {
+    padding-top: 0.7rem;
   }
 
   .film {
-    grid-template-rows: 34vh 34vh;
-    padding: 4.5rem 0 34vh;
-    gap: 0.45rem;
+    gap: 0.4rem;
   }
 
   .track {
-    gap: 0.45rem;
+    gap: 0.4rem;
   }
 
   .showcase {
-    top: 1rem;
-    font-size: 0.7rem;
-    letter-spacing: 0.28em;
-  }
-
-  .showcase::after {
-    margin-top: 0.7rem;
-  }
-
-  .veil {
-    background:
-      linear-gradient(
-        180deg,
-        rgba(235, 226, 214, 0.55) 0%,
-        transparent 16%
-      ),
-      linear-gradient(
-        180deg,
-        transparent 40%,
-        rgba(235, 226, 214, 0.75) 68%,
-        rgba(235, 226, 214, 0.97) 100%
-      );
+    font-size: 0.68rem;
+    letter-spacing: 0.26em;
+    margin-bottom: 0.5rem;
   }
 
   .shell {
     width: min(100% - 1.5rem, 1280px);
-    padding-bottom: 1.6rem;
+    padding: 1.25rem 0 1.4rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.1rem;
   }
 
   .brand {
-    font-size: clamp(1.7rem, 7.5vw, 2.2rem);
+    font-size: clamp(1.75rem, 8vw, 2.25rem);
   }
 
   .copy h1 {
-    max-width: 24ch;
+    max-width: 26ch;
   }
 }

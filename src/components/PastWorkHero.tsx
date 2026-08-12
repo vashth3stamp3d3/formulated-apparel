@@ -25,10 +25,10 @@ function FilmRow({
             <Image
               src={item.src}
               alt=""
-              width={800}
-              height={1000}
+              width={900}
+              height={1125}
               className={styles.frameImg}
-              sizes="(max-width: 700px) 62vw, 30vw"
+              sizes="(max-width: 700px) 70vw, 34vw"
               priority={index < 4}
             />
           </figure>
@@ -43,22 +43,24 @@ export function PastWorkHero() {
 
   return (
     <section className={styles.hero} aria-label="Past work">
-      <div className={styles.film} aria-hidden="true">
-        <FilmRow items={row1} duration={140} />
-        <FilmRow items={row2} reverse duration={160} />
+      <div className={styles.stage}>
+        <p className={styles.showcase}>See our past work</p>
+
+        <div className={styles.film} aria-hidden="true">
+          <FilmRow items={row1} duration={140} />
+          <FilmRow items={row2} reverse duration={160} />
+        </div>
       </div>
 
-      <div className={styles.veil} aria-hidden="true" />
-
-      <p className={styles.showcase}>See our past work</p>
-
-      <div className={styles.shell}>
-        <div className={styles.copy}>
-          <p className={styles.brand}>formulated apparel</p>
-          <h1>Printed in Calgary for brands that care how it looks.</h1>
-          <p className={styles.lead}>
-            Clean registration. Solid blanks. Timelines you can calendar.
-          </p>
+      <div className={styles.band}>
+        <div className={styles.shell}>
+          <div className={styles.copy}>
+            <p className={styles.brand}>formulated apparel</p>
+            <h1>Printed in Calgary for brands that care how it looks.</h1>
+            <p className={styles.lead}>
+              Clean registration. Solid blanks. Timelines you can calendar.
+            </p>
+          </div>
           <div className={styles.actions}>
             <Link href="/contact" className={`btn btn--primary ${styles.cta}`}>
               Request a quote
