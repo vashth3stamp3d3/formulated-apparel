@@ -7,50 +7,80 @@
   },
   {
     "src": "/images/past-work/work-02.jpg",
-    "label": "Soft Bakes",
-    "alt": "Soft Bakes left-chest print on black tee",
+    "label": "Prodigy Mechanical",
+    "alt": "Prodigy Mechanical branded tees",
     "rotate": 0
   },
   {
     "src": "/images/past-work/work-03.jpg",
-    "label": "Prodigy Mechanical",
-    "alt": "Prodigy Mechanical branded tees",
+    "label": "Fiesta 2025",
+    "alt": "Lethbridge Fiesta Extravaganza event tees",
     "rotate": 0.85
   },
   {
     "src": "/images/past-work/work-04.jpg",
-    "label": "Fiesta 2025",
-    "alt": "Lethbridge Fiesta Extravaganza event tees",
+    "label": "META",
+    "alt": "META gear logo hoodie, left chest",
     "rotate": 1.7
   },
   {
     "src": "/images/past-work/work-05.jpg",
-    "label": "META",
-    "alt": "META gear logo hoodie, left chest",
+    "label": "Identity Crisis",
+    "alt": "Identity Crisis graphic tee print",
     "rotate": -1.7
   },
   {
     "src": "/images/past-work/work-06.jpg",
-    "label": "FBBC",
-    "alt": "FBBC team event tee",
+    "label": "Formulated",
+    "alt": "Formulated constellation left-chest crewneck",
     "rotate": -0.85
   },
   {
     "src": "/images/past-work/work-07.jpg",
-    "label": "Identity Crisis",
-    "alt": "Identity Crisis graphic tee print",
+    "label": "Legacy Decks",
+    "alt": "Legacy Decks Ltd company hoodie order",
     "rotate": 0
   },
   {
     "src": "/images/past-work/work-08.jpg",
-    "label": "Formulated",
-    "alt": "Formulated constellation left-chest crewneck",
+    "label": "Northpine",
+    "alt": "Northpine Outfitters branded hoodie",
     "rotate": 0.85
   },
   {
     "src": "/images/past-work/work-09.jpg",
-    "label": "Legacy Decks",
-    "alt": "Legacy Decks Ltd company hoodie order",
+    "label": "Copperline Electric",
+    "alt": "Copperline Electric company tee",
+    "rotate": 1.7
+  },
+  {
+    "src": "/images/past-work/work-10.jpg",
+    "label": "Driftwood Coffee",
+    "alt": "Driftwood Coffee Co branded hoodie",
+    "rotate": -1.7
+  },
+  {
+    "src": "/images/past-work/work-11.jpg",
+    "label": "Peakline Scaffolding",
+    "alt": "Peakline Scaffolding back-print tee",
+    "rotate": -0.85
+  },
+  {
+    "src": "/images/past-work/work-12.jpg",
+    "label": "Hollow & Pine",
+    "alt": "Hollow & Pine Studio crewneck",
+    "rotate": 0
+  },
+  {
+    "src": "/images/past-work/work-13.jpg",
+    "label": "Redshift Athletics",
+    "alt": "Redshift Athletics navy hoodie",
+    "rotate": 0.85
+  },
+  {
+    "src": "/images/past-work/work-14.jpg",
+    "label": "Prairie Volt",
+    "alt": "Prairie Volt Energy left-chest tee",
     "rotate": 1.7
   }
 ]

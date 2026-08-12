@@ -9,17 +9,15 @@ const assetsDir = path.resolve(
   ".cursor/projects/c-Users-jerro-Desktop-formulated-apparel/assets",
 );
 
-/** Curated studio set — one Soft Bakes back + chest, no film-sheet dupes. */
+/**
+ * One Soft Bakes only (no same-design dupes).
+ * Plus real client pieces + 7 fictional portfolio brands.
+ */
 const studio = [
   {
     file: "studio-01-softbakes-back.jpg",
     label: "Soft Bakes",
     alt: "Soft Bakes cinnamon roll back print on black tee",
-  },
-  {
-    file: "studio-02-softbakes-chest.jpg",
-    label: "Soft Bakes",
-    alt: "Soft Bakes left-chest print on black tee",
   },
   {
     file: "studio-03-prodigy.jpg",
@@ -37,11 +35,6 @@ const studio = [
     alt: "META gear logo hoodie, left chest",
   },
   {
-    file: "studio-06-team.jpg",
-    label: "FBBC",
-    alt: "FBBC team event tee",
-  },
-  {
     file: "studio-11-identity-clean.jpg",
     label: "Identity Crisis",
     alt: "Identity Crisis graphic tee print",
@@ -55,6 +48,41 @@ const studio = [
     file: "studio-10-legacy.jpg",
     label: "Legacy Decks",
     alt: "Legacy Decks Ltd company hoodie order",
+  },
+  {
+    file: "studio-f01-northpine.jpg",
+    label: "Northpine",
+    alt: "Northpine Outfitters branded hoodie",
+  },
+  {
+    file: "studio-f02-copperline.jpg",
+    label: "Copperline Electric",
+    alt: "Copperline Electric company tee",
+  },
+  {
+    file: "studio-f03-driftwood.jpg",
+    label: "Driftwood Coffee",
+    alt: "Driftwood Coffee Co branded hoodie",
+  },
+  {
+    file: "studio-f04-peakline.jpg",
+    label: "Peakline Scaffolding",
+    alt: "Peakline Scaffolding back-print tee",
+  },
+  {
+    file: "studio-f05-hollowpine.jpg",
+    label: "Hollow & Pine",
+    alt: "Hollow & Pine Studio crewneck",
+  },
+  {
+    file: "studio-f06-redshift.jpg",
+    label: "Redshift Athletics",
+    alt: "Redshift Athletics navy hoodie",
+  },
+  {
+    file: "studio-f07-prairievolt.jpg",
+    label: "Prairie Volt",
+    alt: "Prairie Volt Energy left-chest tee",
   },
 ];
 
