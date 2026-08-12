@@ -51,6 +51,11 @@ export function MockupDesigner() {
 
   return (
     <div className={styles.wrap}>
+      <script
+        id="mockup-editor-data"
+        type="application/json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(editorData) }}
+      />
       <div id="mockup-editor-root">
         <div className="mockup-editor" id="mockup-editor">
           <header className="mockup-bento-header">

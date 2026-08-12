@@ -923,10 +923,10 @@
 
     for (const url of urls) {
       try {
-        const res = await fetchWithTimeout(url, {
-          cache: "no-store",
-          headers: { Pragma: "no-cache", "Cache-Control": "no-cache" },
-        }, 8000);
+        // Avoid custom headers — they trigger CORS preflight that fails on
+        // standalone hosts (e.g. formulatedprintsapparel.com) when the API
+        // only allows Access-Control-Allow-Headers: Content-Type.
+        const res = await fetchWithTimeout(url, { cache: "no-store" }, 8000);
         if (!res.ok) continue;
         const ct = res.headers.get("content-type") || "";
         if (!ct.includes("json")) continue;
