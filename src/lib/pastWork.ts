@@ -5,7 +5,7 @@ export type PastWorkItem = {
   rotate: number;
 };
 
-/** Studio-shot client work for the home hero film. Labels are real brands only. */
+/** Studio-shot client work for the home hero film. */
 export const pastWorkItems: PastWorkItem[] = [
   {
     src: "/images/past-work/work-01.jpg",
@@ -34,7 +34,7 @@ export const pastWorkItems: PastWorkItem[] = [
   {
     src: "/images/past-work/work-05.jpg",
     label: "META",
-    alt: "META gear logo hoodie",
+    alt: "META gear logo hoodie, left chest",
     rotate: 0.8,
   },
   {
@@ -45,27 +45,21 @@ export const pastWorkItems: PastWorkItem[] = [
   },
   {
     src: "/images/past-work/work-07.jpg",
-    label: "Soft Bakes",
-    alt: "Soft Bakes branded black tee",
+    label: "Identity Crisis",
+    alt: "Identity Crisis graphic tee print",
     rotate: 0.6,
   },
   {
     src: "/images/past-work/work-08.jpg",
-    label: "Identity Crisis",
-    alt: "Identity Crisis graphic tee print",
+    label: "Formulated",
+    alt: "Formulated constellation left-chest crewneck",
     rotate: -0.5,
   },
   {
     src: "/images/past-work/work-09.jpg",
-    label: "Formulated",
-    alt: "Formulated constellation crewneck",
-    rotate: 1.0,
-  },
-  {
-    src: "/images/past-work/work-10.jpg",
     label: "Legacy Decks",
     alt: "Legacy Decks Ltd company hoodie order",
-    rotate: -0.8,
+    rotate: 1.0,
   },
 ];
 

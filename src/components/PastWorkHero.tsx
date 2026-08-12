@@ -57,18 +57,17 @@ export function PastWorkHero() {
       <div className={styles.shell}>
         <div className={styles.copy}>
           <p className={styles.brand}>formulated apparel</p>
-          <h1>Merch your team is proud to wear</h1>
+          <h1>Company &amp; event apparel, printed properly</h1>
           <p className={styles.lead}>
-            Real Calgary client work — sharp prints, solid blanks, turnaround
-            you can plan around. Bring your logo. We&apos;ll make it look like
-            it belongs on a shirt.
+            Calgary production for brands that notice the details — clean
+            registration, solid blanks, timelines you can put on a calendar.
           </p>
           <div className={styles.actions}>
             <Link href="/design" className="btn btn--accent">
-              Start your design
+              Build a mockup
             </Link>
             <Link href="/contact" className="btn btn--ghost">
-              Talk to the shop
+              Request a quote
             </Link>
           </div>
         </div>

@@ -76,18 +76,17 @@
   pointer-events: none;
   background:
     linear-gradient(
-      105deg,
-      rgba(243, 235, 224, 0.96) 0%,
-      rgba(243, 235, 224, 0.88) 28%,
-      rgba(243, 235, 224, 0.42) 52%,
-      rgba(243, 235, 224, 0.08) 72%,
-      transparent 88%
+      100deg,
+      rgba(243, 235, 224, 0.97) 0%,
+      rgba(243, 235, 224, 0.9) 22%,
+      rgba(243, 235, 224, 0.35) 42%,
+      transparent 62%
     ),
     linear-gradient(
       180deg,
-      transparent 35%,
-      rgba(232, 223, 210, 0.55) 72%,
-      rgba(232, 223, 210, 0.92) 100%
+      transparent 55%,
+      rgba(232, 223, 210, 0.35) 78%,
+      rgba(232, 223, 210, 0.78) 100%
     );
 }
 
@@ -168,14 +167,13 @@
   }
 
   .veil {
-    background:
-      linear-gradient(
-        180deg,
-        rgba(243, 235, 224, 0.2) 0%,
-        rgba(243, 235, 224, 0.35) 38%,
-        rgba(243, 235, 224, 0.88) 68%,
-        rgba(232, 223, 210, 0.97) 100%
-      );
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      transparent 42%,
+      rgba(243, 235, 224, 0.72) 68%,
+      rgba(232, 223, 210, 0.96) 100%
+    );
   }
 
   .shell {
