@@ -43,24 +43,23 @@ export function PastWorkHero() {
 
   return (
     <section className={styles.hero} aria-label="Past work">
-      <div className={styles.stage}>
-        <p className={styles.showcase}>See our past work</p>
-
-        <div className={styles.film} aria-hidden="true">
-          <FilmRow items={row1} duration={140} />
-          <FilmRow items={row2} reverse duration={160} />
-        </div>
+      <div className={styles.film} aria-hidden="true">
+        <FilmRow items={row1} duration={140} />
+        <FilmRow items={row2} reverse duration={160} />
       </div>
 
-      <div className={styles.band}>
-        <div className={styles.shell}>
-          <div className={styles.copy}>
-            <p className={styles.brand}>formulated apparel</p>
-            <h1>Printed in Calgary for brands that care how it looks.</h1>
-            <p className={styles.lead}>
-              Clean registration. Solid blanks. Timelines you can calendar.
-            </p>
-          </div>
+      <div className={styles.veilTop} aria-hidden="true" />
+      <div className={styles.veilCopy} aria-hidden="true" />
+
+      <p className={styles.showcase}>Our Past Work</p>
+
+      <div className={styles.shell}>
+        <div className={styles.copy}>
+          <p className={styles.brand}>formulated apparel</p>
+          <h1>Printed in Calgary for brands that care how it looks.</h1>
+          <p className={styles.lead}>
+            Clean registration. Solid blanks. Timelines you can calendar.
+          </p>
           <div className={styles.actions}>
             <Link href="/contact" className={`btn btn--primary ${styles.cta}`}>
               Request a quote

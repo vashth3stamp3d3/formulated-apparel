@@ -1,50 +1,24 @@
 .hero {
+  --hero-cream: #ebe2d6;
   position: relative;
   isolation: isolate;
-  display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
   min-height: min(100svh, 980px);
-  background: #ebe2d6;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   overflow: hidden;
-}
-
-.stage {
-  position: relative;
-  min-height: 0;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
-  padding: 0.85rem 0 0.65rem;
-}
-
-.showcase {
-  position: relative;
-  z-index: 2;
-  margin: 0 0 0.65rem;
-  text-align: center;
-  white-space: nowrap;
-  font-size: clamp(0.72rem, 0.9vw, 0.8rem);
-  font-weight: 600;
-  letter-spacing: 0.32em;
-  line-height: 1;
-  text-transform: uppercase;
-  color: #111;
-}
-
-.showcase::after {
-  content: "";
-  display: block;
-  width: 2.25rem;
-  height: 1px;
-  margin: 0.55rem auto 0;
-  background: rgba(17, 17, 17, 0.3);
+  align-items: end;
+  background: var(--hero-cream);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .film {
-  min-height: 0;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   display: grid;
   grid-template-rows: 1fr 1fr;
   gap: 0.5rem;
+  padding: 3.75rem 0 0;
+  pointer-events: none;
   mask-image: linear-gradient(
     90deg,
     transparent 0%,
@@ -91,34 +65,95 @@
   filter: contrast(1.04) saturate(0.98);
 }
 
-/* Solid band = readable type, no milky overlay fighting the film */
-.band {
-  position: relative;
+/* Milky wash behind "Our Past Work" */
+.veilTop {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 7.5rem;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(235, 226, 214, 0.96) 0%,
+    rgba(235, 226, 214, 0.78) 45%,
+    rgba(235, 226, 214, 0) 100%
+  );
+}
+
+/* Opaque cream panel behind copy — seamless blend into hero film */
+.veilCopy {
+  position: absolute;
+  inset: auto 0 0;
+  height: min(52%, 28rem);
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      95deg,
+      rgba(235, 226, 214, 1) 0%,
+      rgba(235, 226, 214, 0.98) 28%,
+      rgba(235, 226, 214, 0.82) 48%,
+      rgba(235, 226, 214, 0.28) 68%,
+      rgba(235, 226, 214, 0) 86%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(235, 226, 214, 0) 0%,
+      rgba(235, 226, 214, 0.55) 35%,
+      rgba(235, 226, 214, 0.96) 72%,
+      rgba(235, 226, 214, 1) 100%
+    );
+}
+
+.showcase {
+  position: absolute;
+  top: clamp(1.1rem, 2.2vw, 1.65rem);
+  left: 50%;
   z-index: 2;
-  background: #f4eee5;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 -18px 40px rgba(235, 226, 214, 0.65);
+  margin: 0;
+  transform: translateX(-50%);
+  text-align: center;
+  white-space: nowrap;
+  font-size: clamp(0.78rem, 1.05vw, 0.92rem);
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #111;
+  pointer-events: none;
+}
+
+.showcase::after {
+  content: "";
+  display: block;
+  width: 2.25rem;
+  height: 1px;
+  margin: 0.65rem auto 0;
+  background: rgba(17, 17, 17, 0.32);
 }
 
 .shell {
+  position: relative;
+  z-index: 2;
   width: min(100% - 2rem, 1280px);
   margin: 0 auto;
-  padding: clamp(1.35rem, 2.4vw, 1.85rem) 0;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1.25rem 2rem;
+  padding: 0 0 clamp(1.6rem, 3.5vh, 2.4rem);
 }
 
 .copy {
-  max-width: 36rem;
-  flex: 1 1 18rem;
+  max-width: 34rem;
+  padding: 1.15rem 1.25rem 1.15rem 0;
+  background: linear-gradient(
+    90deg,
+    rgba(235, 226, 214, 0.92) 0%,
+    rgba(235, 226, 214, 0.72) 70%,
+    rgba(235, 226, 214, 0) 100%
+  );
 }
 
 .brand {
-  margin: 0 0 0.4rem;
-  font-size: clamp(2rem, 3.8vw, 2.85rem);
+  margin: 0 0 0.45rem;
+  font-size: clamp(2.05rem, 4vw, 2.95rem);
   font-weight: 800;
   letter-spacing: -0.035em;
   line-height: 0.98;
@@ -126,21 +161,21 @@
 }
 
 .copy h1 {
-  margin: 0 0 0.45rem;
-  font-size: clamp(1.15rem, 1.9vw, 1.45rem);
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.18rem, 2vw, 1.5rem);
   font-weight: 600;
   letter-spacing: -0.02em;
-  line-height: 1.3;
-  max-width: 28ch;
-  color: #1a1a1a;
+  line-height: 1.28;
+  max-width: 26ch;
+  color: #151515;
 }
 
 .lead {
-  margin: 0;
-  max-width: 40ch;
-  font-size: 1.02rem;
+  margin: 0 0 1.25rem;
+  max-width: 36ch;
+  font-size: 1.05rem;
   line-height: 1.5;
-  color: #4a453f;
+  color: #3f3a34;
 }
 
 .actions {
@@ -148,8 +183,6 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0.85rem 1.25rem;
-  flex: 0 0 auto;
-  padding-bottom: 0.15rem;
 }
 
 .cta {
@@ -164,7 +197,7 @@
   font-weight: 600;
   color: #111;
   text-decoration: none;
-  border-bottom: 1px solid rgba(17, 17, 17, 0.35);
+  border-bottom: 1px solid rgba(17, 17, 17, 0.4);
   padding-bottom: 0.1rem;
   transition: border-color 0.2s ease;
 }
@@ -190,6 +223,7 @@
   .film {
     overflow-x: auto;
     mask-image: none;
+    pointer-events: auto;
   }
 }
 
@@ -198,11 +232,9 @@
     min-height: min(100svh, 900px);
   }
 
-  .stage {
-    padding-top: 0.7rem;
-  }
-
   .film {
+    grid-template-rows: 1fr 1fr;
+    padding-top: 3.4rem;
     gap: 0.4rem;
   }
 
@@ -210,25 +242,44 @@
     gap: 0.4rem;
   }
 
+  .veilTop {
+    height: 6.25rem;
+  }
+
+  .veilCopy {
+    height: 58%;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(235, 226, 214, 0) 0%,
+        rgba(235, 226, 214, 0.7) 28%,
+        rgba(235, 226, 214, 0.97) 62%,
+        rgba(235, 226, 214, 1) 100%
+      );
+  }
+
   .showcase {
-    font-size: 0.68rem;
-    letter-spacing: 0.26em;
-    margin-bottom: 0.5rem;
+    top: 0.95rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.24em;
   }
 
   .shell {
     width: min(100% - 1.5rem, 1280px);
-    padding: 1.25rem 0 1.4rem;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1.1rem;
+    padding-bottom: 1.35rem;
+  }
+
+  .copy {
+    max-width: none;
+    padding: 0.85rem 0.35rem 0.85rem 0;
+    background: rgba(235, 226, 214, 0.9);
   }
 
   .brand {
-    font-size: clamp(1.75rem, 8vw, 2.25rem);
+    font-size: clamp(1.8rem, 8vw, 2.3rem);
   }
 
   .copy h1 {
-    max-width: 26ch;
+    max-width: 24ch;
   }
 }
