@@ -109,6 +109,38 @@ export function breadcrumbSchema(
   };
 }
 
+export function articleSchema(input: {
+  headline: string;
+  description: string;
+  image: string;
+  datePublished: string;
+  dateModified: string;
+  authorName: string;
+  path: string;
+}) {
+  return {
+    "@type": "Article",
+    "@id": `${site.url}${input.path}#article`,
+    headline: input.headline,
+    description: input.description,
+    image: [input.image],
+    datePublished: input.datePublished,
+    dateModified: input.dateModified,
+    author: {
+      "@type": "Organization",
+      name: input.authorName,
+      url: `${site.url}/about`,
+    },
+    publisher: { "@id": `${site.url}/#organization` },
+    mainEntityOfPage: `${site.url}${input.path}`,
+    isPartOf: {
+      "@type": "Blog",
+      "@id": `${site.url}/blog#blog`,
+      name: `${site.name} Blog`,
+    },
+  };
+}
+
 export function graphSchema(...nodes: Record<string, unknown>[]) {
   return {
     "@context": "https://schema.org",

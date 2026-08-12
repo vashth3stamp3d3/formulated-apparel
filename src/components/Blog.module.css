@@ -1,0 +1,174 @@
+.list {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: stretch;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-border);
+  text-decoration: none;
+  color: inherit;
+}
+
+.card:hover .cardTitle {
+  color: var(--color-accent);
+}
+
+.cardMedia {
+  position: relative;
+  min-height: 140px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-cream);
+}
+
+.cardMedia img {
+  object-fit: cover;
+}
+
+.cardBody {
+  display: grid;
+  align-content: start;
+  gap: 0.45rem;
+}
+
+.meta {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  transition: color 0.15s ease;
+}
+
+.cardDesc {
+  margin: 0;
+  color: var(--color-text-light);
+  max-width: 62ch;
+}
+
+.article {
+  padding: 2.5rem 0 4rem;
+}
+
+.articleHeader {
+  max-width: 720px;
+  margin: 0 auto 1.75rem;
+}
+
+.articleHeader h1 {
+  margin: 0.5rem 0 0.85rem;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+}
+
+.lede {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--color-text-light);
+  max-width: 54ch;
+}
+
+.heroImage {
+  position: relative;
+  width: min(100%, 920px);
+  margin: 0 auto 2rem;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-cream);
+}
+
+.heroImage img {
+  object-fit: cover;
+}
+
+.prose {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.prose h2 {
+  margin: 2rem 0 0.75rem;
+  font-size: 1.45rem;
+  letter-spacing: -0.02em;
+}
+
+.prose h3 {
+  margin: 1.4rem 0 0.55rem;
+  font-size: 1.1rem;
+}
+
+.prose p {
+  margin: 0 0 1rem;
+  color: var(--color-text);
+  line-height: 1.65;
+}
+
+.prose ul {
+  margin: 0 0 1.25rem;
+  padding-left: 1.2rem;
+  color: var(--color-text);
+  line-height: 1.55;
+}
+
+.prose li + li {
+  margin-top: 0.4rem;
+}
+
+.resource a {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.related {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-border);
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.related h2 {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+}
+
+.relatedList {
+  display: grid;
+  gap: 0.75rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.relatedList a {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.relatedList a:hover {
+  color: var(--color-accent);
+}
+
+@media (max-width: 760px) {
+  .card {
+    grid-template-columns: 1fr;
+  }
+
+  .cardMedia {
+    min-height: 180px;
+  }
+}

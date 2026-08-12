@@ -37,6 +37,7 @@ export const navLinks = [
   { href: "/company-swag", label: "Company swag" },
   { href: "/event-swag", label: "Event swag" },
   { href: "/custom-merch", label: "Custom merch" },
+  { href: "/blog", label: "Blog" },
   { href: "/how-it-works", label: "How it works" },
   { href: "/locations/alberta", label: "Alberta" },
   { href: "/contact", label: "Contact" },

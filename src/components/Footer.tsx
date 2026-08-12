@@ -54,6 +54,9 @@ export function Footer() {
               <Link href="/design">Design &amp; quote</Link>
             </li>
             <li>
+              <Link href="/blog">Blog</Link>
+            </li>
+            <li>
               <Link href="/locations/calgary">Calgary</Link>
             </li>
             <li>
