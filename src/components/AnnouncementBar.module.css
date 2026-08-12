@@ -1,0 +1,33 @@
+.bar {
+  background: var(--color-cream);
+  border-radius: 30px;
+  margin: 10px auto;
+  width: min(100% - 1.25rem, 1300px);
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+}
+
+.inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.5rem 0.85rem;
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #111111;
+}
+
+.text {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #2a2a2a;
+}

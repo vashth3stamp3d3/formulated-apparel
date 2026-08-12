@@ -1,0 +1,145 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.productionBar {
+  background: #111111;
+  color: #f6efe6;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.productionInner {
+  width: min(100% - 1.5rem, var(--max-width));
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.45rem 0.75rem;
+  padding: 0.55rem 0;
+}
+
+.productionBar a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(246, 239, 230, 0.5);
+  align-self: center;
+}
+
+.ships {
+  color: #9af2f9;
+  font-weight: 600;
+}
+
+.main {
+  min-height: var(--header-height);
+  display: flex;
+  align-items: center;
+}
+
+.mainInner {
+  width: min(100% - 1.5rem, var(--max-width));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+}
+
+.brand {
+  justify-self: start;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.nav a:hover {
+  color: var(--color-accent);
+}
+
+.actions {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.menuBtn {
+  display: none;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: #fff;
+  padding: 10px;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.menuBtn span {
+  display: block;
+  height: 2px;
+  background: #111;
+  border-radius: 2px;
+}
+
+.mobileNav {
+  display: none;
+}
+
+@media (max-width: 990px) {
+  .mainInner {
+    grid-template-columns: 1fr auto;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .actions .btn {
+    display: none;
+  }
+
+  .menuBtn {
+    display: flex;
+  }
+
+  .mobileNav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: 1rem 1.25rem 1.5rem;
+    border-top: 1px solid var(--color-border);
+    background: #fff;
+  }
+
+  .mobileNav a:not(.btn) {
+    font-weight: 600;
+    padding: 0.35rem 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .productionInner .dot:nth-of-type(3),
+  .productionInner span:last-child {
+    display: none;
+  }
+}

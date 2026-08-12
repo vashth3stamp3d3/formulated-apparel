@@ -1,0 +1,8 @@
+.wrap {
+  width: min(100% - 1rem, 1400px);
+  margin: 0 auto 3rem;
+}
+
+.wrap :global(.mockup-editor) {
+  font-family: var(--font-family-primary);
+}

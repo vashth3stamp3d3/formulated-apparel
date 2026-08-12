@@ -1,0 +1,45 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+}
+
+.mark {
+  width: 36px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  line-height: 1.1;
+}
+
+.wordmark {
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+}
+
+.tagline {
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+@media (max-width: 640px) {
+  .tagline {
+    display: none;
+  }
+
+  .wordmark {
+    font-size: 1rem;
+  }
+
+  .mark {
+    width: 28px;
+    height: 38px;
+  }
+}
