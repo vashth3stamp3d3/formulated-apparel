@@ -76,6 +76,12 @@
   pointer-events: none;
   background:
     linear-gradient(
+      180deg,
+      rgba(243, 235, 224, 0.82) 0%,
+      rgba(243, 235, 224, 0.28) 14%,
+      transparent 28%
+    ),
+    linear-gradient(
       100deg,
       rgba(243, 235, 224, 0.97) 0%,
       rgba(243, 235, 224, 0.9) 22%,
@@ -88,6 +94,25 @@
       rgba(232, 223, 210, 0.35) 78%,
       rgba(232, 223, 210, 0.78) 100%
     );
+}
+
+.showcase {
+  position: absolute;
+  top: clamp(1.1rem, 2.8vw, 1.85rem);
+  left: 0;
+  right: 0;
+  z-index: 2;
+  margin: 0;
+  padding: 0 clamp(1rem, 3vw, 1.5rem);
+  text-align: center;
+  font-size: clamp(2.4rem, 7.2vw, 5.25rem);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+  color: #111;
+  text-wrap: balance;
+  pointer-events: none;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
 .shell {
@@ -162,8 +187,13 @@
 
   .film {
     grid-template-rows: 38vh 38vh;
-    padding-top: 4.5rem;
+    padding-top: 5.75rem;
     align-content: start;
+  }
+
+  .showcase {
+    top: 0.85rem;
+    font-size: clamp(2rem, 9.5vw, 3.1rem);
   }
 
   .veil {

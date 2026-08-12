@@ -54,6 +54,8 @@ export function PastWorkHero() {
 
       <div className={styles.veil} aria-hidden="true" />
 
+      <p className={styles.showcase}>See our past work</p>
+
       <div className={styles.shell}>
         <div className={styles.copy}>
           <p className={styles.brand}>formulated apparel</p>
