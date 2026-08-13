@@ -56,10 +56,10 @@ export function PastWorkHero() {
       <div className={styles.shell}>
         <div className={styles.copy}>
           <p className={styles.brand}>formulated apparel</p>
-          <h1>Your apparel is the image clients remember.</h1>
+          <h1>Your company deserves branding people trust.</h1>
           <p className={styles.lead}>
-            A professional look makes your brand easier to trust. We print it
-            that way in Calgary, on solid blanks with clean registration.
+            Make your team look professional with company merch that feels
+            intentional. Clean prints, solid blanks, Calgary production.
           </p>
           <div className={styles.actions}>
             <Link href="/contact" className={`btn btn--primary ${styles.cta}`}>
