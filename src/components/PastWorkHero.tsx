@@ -56,9 +56,10 @@ export function PastWorkHero() {
       <div className={styles.shell}>
         <div className={styles.copy}>
           <p className={styles.brand}>formulated apparel</p>
-          <h1>Printed in Calgary for brands that care how it looks.</h1>
+          <h1>Your apparel is the image clients remember.</h1>
           <p className={styles.lead}>
-            Clean registration. Solid blanks. Timelines you can calendar.
+            A professional look makes your brand easier to trust. We print it
+            that way in Calgary, on solid blanks with clean registration.
           </p>
           <div className={styles.actions}>
             <Link href="/contact" className={`btn btn--primary ${styles.cta}`}>
