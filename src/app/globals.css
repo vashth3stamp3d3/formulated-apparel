@@ -186,6 +186,11 @@ p {
   margin-bottom: 2rem;
 }
 
+body.has-mockup-studio-lock,
+body.has-mockup-studio-lock main {
+  overflow: visible;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;

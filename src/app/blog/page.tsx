@@ -11,7 +11,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Blog | Company swag & event merch guides",
   description:
-    "Practical guides on company swag, event merch, file prep, and Calgary apparel production from Formulated Apparel.",
+    "A short set of practical guides from our Calgary shop: timelines, file prep, blank choices, and event merch checklists.",
   alternates: { canonical: "/blog" },
 };
 
@@ -39,7 +39,7 @@ export default function BlogIndexPage() {
       />
       <PageHero
         title="Guides from the shop floor"
-        lead="Company swag timelines, event merch checklists, file prep, and Calgary production notes. Written for people who have to hit a real date."
+        lead="A curated set of notes we actually use with clients: timelines, file prep, blank choices, and event checklists. No filler posts."
         imageSrc="/images/company-swag.jpg"
         imageAlt="Custom company apparel ready in a Calgary shop"
       />

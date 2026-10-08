@@ -1,6 +1,6 @@
 .wrap {
-  width: min(100% - 1rem, 1400px);
-  margin: 0 auto 3rem;
+  width: min(100%, 1480px);
+  margin: 0 auto;
 }
 
 .wrap :global(.mockup-editor) {

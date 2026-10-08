@@ -4,14 +4,10 @@ import { useEffect } from "react";
 import { site } from "@/lib/site";
 import styles from "./MockupDesigner.module.css";
 
-/** Bump when Mockup App editor UX ships so browsers skip stale CDN caches. */
-const EDITOR_ASSET_VERSION = "20260812c";
-
 const mockupApp = site.mockupAppUrl.replace(/\/+$/, "");
 
 const editorData = {
   appUrl: mockupApp,
-  // Shopify checkout on formulatedprints.com (not quote mode).
   shopifyCartHost: site.shopifyCatalogUrl.replace(/\/+$/, ""),
   productsUrl: `${mockupApp}/api/shopify-products`,
   productId: null,
@@ -22,35 +18,65 @@ const editorData = {
   variants: [] as unknown[],
 };
 
+// Initial static markup matching mockup-editor.liquid HUD Studio
+const INITIAL_STUDIO_HTML = "<div id=\"mockup-editor-root\" class=\"mockup-hud-app is-studio\">\n  <div class=\"hud-studio-shell\">\n    <!-- Top HUD Navigation & Uploaded Designs Tray -->\n    <header class=\"hud-header-zone\">\n      <div class=\"hud-action-row\">\n        <button type=\"button\" class=\"hud-action-pill hud-action-pill--navy\" id=\"hud-btn-choose-product\" aria-haspopup=\"dialog\" aria-expanded=\"false\">\n          Choose Product\n        </button>\n        <button type=\"button\" class=\"hud-action-pill hud-action-pill--lavender\" id=\"hud-btn-upload-design\" aria-haspopup=\"dialog\" aria-expanded=\"false\">\n          Upload Design(s)\n        </button>\n      </div>\n\n      <div class=\"hud-uploads-tray\" id=\"hud-uploads-tray\">\n        <span class=\"hud-tray-title\">Uploaded Designs</span>\n        <div class=\"hud-tray-cards\">\n          <button type=\"button\" class=\"hud-tray-card\" id=\"hud-tray-front\" data-tray-side=\"front\" aria-label=\"Front design\">\n            <div class=\"hud-tray-card-preview\" id=\"hud-tray-preview-front\">\n              <span class=\"hud-tray-card-empty-icon\">+</span>\n            </div>\n            <div class=\"hud-tray-card-info\">\n              <span class=\"hud-tray-card-label\">Front</span>\n              <span class=\"hud-tray-card-badge\" id=\"hud-tray-badge-front\" hidden>Center Chest</span>\n            </div>\n          </button>\n          <button type=\"button\" class=\"hud-tray-card\" id=\"hud-tray-back\" data-tray-side=\"back\" aria-label=\"Back design\">\n            <div class=\"hud-tray-card-preview\" id=\"hud-tray-preview-back\">\n              <span class=\"hud-tray-card-empty-icon\">+</span>\n            </div>\n            <div class=\"hud-tray-card-info\">\n              <span class=\"hud-tray-card-label\">Back</span>\n              <span class=\"hud-tray-card-badge\" id=\"hud-tray-badge-back\" hidden>Center Back</span>\n            </div>\n          </button>\n        </div>\n      </div>\n    </header>\n\n    <!-- Central Garment Stage -->\n    <section class=\"hud-stage-zone\" aria-label=\"Merch Preview Canvas\">\n      <div class=\"hud-garment-stage\" id=\"hud-garment-stage\">\n        <!-- Enlarge Pill Button -->\n        <button type=\"button\" class=\"hud-enlarge-pill\" id=\"hud-btn-enlarge\" aria-label=\"Enlarge mockup preview\">\n          <span>Enlarge</span>\n          <svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\">\n            <polyline points=\"15 3 21 3 21 9\"></polyline>\n            <polyline points=\"9 21 3 21 3 15\"></polyline>\n            <line x1=\"21\" y1=\"3\" x2=\"14\" y2=\"10\"></line>\n            <line x1=\"3\" y1=\"21\" x2=\"10\" y2=\"14\"></line>\n          </svg>\n        </button>\n\n        <!-- Model Preview Canvas Gallery -->\n        <div class=\"lifestyle-gallery\" id=\"lifestyle-gallery\">\n          <div class=\"studio-viewer studio-viewer--pending\">\n            <article class=\"studio-hero-card\">\n              <div class=\"studio-hero-placeholder\" aria-hidden=\"true\"></div>\n            </article>\n          </div>\n        </div>\n\n        <div class=\"bento-empty-state\" id=\"lifestyle-empty\" hidden>Upload art to see your mockup.</div>\n\n        <!-- Floating Micro-Dock directly on Garment Stage -->\n        <div class=\"hud-micro-dock\" id=\"hud-micro-dock\" hidden>\n          <div class=\"hud-slider-group\">\n            <span class=\"hud-dock-label\">Size</span>\n            <input type=\"range\" class=\"hud-dock-slider\" id=\"hud-size-slider\" min=\"10\" max=\"100\" value=\"70\" aria-label=\"Artwork size slider\" />\n            <span class=\"hud-slider-val\" id=\"hud-slider-val\">70%</span>\n            <div class=\"hud-dock-inch-badge\" id=\"hud-dock-inch-badge\" title=\"Estimated width in inches (click to edit)\">\n              <input type=\"number\" class=\"hud-dock-inch-input\" id=\"hud-dock-inch-input\" min=\"1\" max=\"16\" step=\"0.1\" value=\"10.5\" aria-label=\"Target inches width\" />\n              <span class=\"hud-dock-inch-unit\">in</span>\n            </div>\n          </div>\n          <div class=\"hud-dock-buttons\">\n            <button type=\"button\" class=\"hud-dock-btn\" id=\"hud-dock-center\" title=\"Snap to center\">\n              <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><line x1=\"12\" y1=\"2\" x2=\"12\" y2=\"22\"/><line x1=\"2\" y1=\"12\" x2=\"22\" y2=\"12\"/></svg>\n              <span>Center</span>\n            </button>\n            <button type=\"button\" class=\"hud-dock-btn\" id=\"hud-dock-rotate\" title=\"Rotate 90 degrees\">\n              <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><polyline points=\"23 4 23 10 17 10\"/><path d=\"M20.49 15a9 9 0 1 1-2.12-9.36L23 10\"/></svg>\n              <span>Rotate 90°</span>\n            </button>\n            <button type=\"button\" class=\"hud-dock-btn hud-dock-btn--delete\" id=\"hud-dock-remove\" title=\"Remove artwork\">\n              <svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><polyline points=\"3 6 5 6 21 6\"/><path d=\"M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2\"/></svg>\n              <span>Remove</span>\n            </button>\n          </div>\n        </div>\n      </div>\n\n      <!-- Perspective Angle Carousel below the stage -->\n      <div class=\"hud-angles-carousel\" id=\"hud-angles-carousel\" role=\"tablist\" aria-label=\"Garment perspective angles\">\n        <button type=\"button\" class=\"hud-angle-pill\" data-angle=\"back\" role=\"tab\" aria-selected=\"false\">\n          <span>Back</span>\n        </button>\n        <button type=\"button\" class=\"hud-angle-pill\" data-angle=\"back-closeup\" role=\"tab\" aria-selected=\"false\">\n          <span>Back close-up</span>\n        </button>\n        <button type=\"button\" class=\"hud-angle-pill is-active\" data-angle=\"front\" role=\"tab\" aria-selected=\"true\">\n          <span>Front</span>\n        </button>\n        <button type=\"button\" class=\"hud-angle-pill\" data-angle=\"front-closeup\" role=\"tab\" aria-selected=\"false\">\n          <span>Front close-up</span>\n        </button>\n      </div>\n    </section>\n\n    <!-- Lower Deck (Order Configuration & Pricing) -->\n    <div class=\"hud-lower-deck\">\n      <!-- Left Column: Color & Size Matrix -->\n      <div class=\"hud-deck-left\" id=\"hud-deck-left\">\n        <!-- Variant Color Swatches -->\n        <div class=\"hud-swatches-card\">\n          <div class=\"hud-swatches-row\" id=\"hud-color-swatches\" role=\"radiogroup\" aria-label=\"Garment color swatches\">\n            <!-- Populated dynamically by JS -->\n          </div>\n        </div>\n\n        <!-- Shirt Type Pill Dropdown -->\n        <div class=\"hud-shirt-type-container\">\n          <label class=\"hud-deck-label\" for=\"hud-shirt-type-select\">Shirt Type</label>\n          <div class=\"hud-select-wrapper\">\n            <select class=\"hud-pill-select\" id=\"hud-shirt-type-select\">\n              <option value=\"standard\">Standard 100% Cotton</option>\n              <option value=\"heavyweight\">Heavyweight Ring-Spun Cotton</option>\n              <option value=\"organic\">100% Organic Cotton</option>\n            </select>\n          </div>\n        </div>\n\n        <!-- Minimum Pieces Notice -->\n        <div class=\"hud-moq-notice\" id=\"hud-moq-notice\">\n          <span>Minimum 5 pieces</span>\n        </div>\n\n        <!-- Size Matrix Input Grid -->\n        <div class=\"hud-size-matrix-wrap\">\n          <span class=\"hud-deck-label\">Size Matrix</span>\n          <div class=\"hud-size-matrix\" id=\"hud-size-matrix\" role=\"group\" aria-label=\"Size quantities\">\n            <!-- Populated dynamically by JS with stepper inputs -->\n          </div>\n        </div>\n      </div>\n\n      <!-- Right Column: Dynamic Quote & Cart Card -->\n      <div class=\"hud-deck-right\" id=\"hud-deck-right\">\n        <div class=\"hud-quote-card\">\n          <div class=\"hud-quote-header\">\n            <span class=\"hud-quote-title\">Total</span>\n            <strong class=\"hud-quote-total\" id=\"hud-quote-total\">$90.00</strong>\n          </div>\n\n          <div class=\"hud-quote-options\">\n            <label class=\"hud-rush-toggle\">\n              <input type=\"checkbox\" id=\"hud-rush-checkbox\" data-rush-toggle />\n              <span>Rush (2–3 bus. days) +25%</span>\n            </label>\n            <div class=\"hud-volume-badge\" id=\"hud-volume-badge\">\n              <span>🟢 Add 5 more for 10% off</span>\n            </div>\n          </div>\n\n          <!-- Pricing Breakdown Itemized Box -->\n          <div class=\"hud-pricing-breakdown\" id=\"hud-pricing-breakdown\" aria-live=\"polite\">\n            <div class=\"hud-price-row\">\n              <span>Garment</span>\n              <span id=\"hud-price-garment\">$90.00</span>\n            </div>\n            <div class=\"hud-price-row\">\n              <span>First print incl.</span>\n              <span>$0.00</span>\n            </div>\n            <div class=\"hud-price-row\" id=\"hud-price-second-row\" hidden>\n              <span>Back print</span>\n              <span id=\"hud-price-second\">$5.00/unit</span>\n            </div>\n            <div class=\"hud-price-row hud-price-row--total\">\n              <strong>Estimated total</strong>\n              <strong id=\"hud-price-est-total\">$90.00</strong>\n            </div>\n            <div class=\"hud-price-unit-sub\" id=\"hud-unit-subtitle\">\n              5 units · $18.00/ea\n            </div>\n          </div>\n\n          <!-- Optional Note to Print Team -->\n          <details class=\"hud-staff-note\">\n            <summary>Note to print team (optional)</summary>\n            <div class=\"hud-staff-note-body\">\n              <textarea id=\"staff-note\" rows=\"2\" maxlength=\"500\" placeholder=\"Notes for the print team (optional)\"></textarea>\n            </div>\n          </details>\n\n          <!-- Action Buttons -->\n          <div class=\"hud-draft-actions\">\n            <button type=\"button\" class=\"hud-btn-outline\" data-save-design>Save design</button>\n            <button type=\"button\" class=\"hud-btn-outline\" data-email-design>Email quote</button>\n          </div>\n\n          <!-- Primary Coral Add To Cart CTA -->\n          <button type=\"button\" class=\"hud-btn-coral\" id=\"btn-add-to-cart\" disabled>\n            Add to cart\n          </button>\n          <p class=\"hud-cart-reason\" id=\"add-to-cart-reason\" role=\"status\">Upload artwork for a front or back print.</p>\n\n          <div class=\"hud-cart-links\">\n            <a href=\"/cart\" class=\"hud-link\">View cart</a>\n            <a href=\"/checkout\" id=\"btn-checkout\" class=\"hud-link\">Checkout</a>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <!-- Hidden legacy / compatibility hooks -->\n  <div style=\"display:none;\" aria-hidden=\"true\">\n    <div id=\"confirm-summary\"></div>\n    <div id=\"design-side-controls\"></div>\n    <div id=\"design-modal\"></div>\n    <div id=\"order-summary\"></div>\n    <div id=\"bento-lifestyle\"></div>\n    <div id=\"bento-print-art\"></div>\n  </div>\n\n  <!-- Floating HUD 1: Choose Product Pop-Up Modal -->\n  <div class=\"hud-floating-modal\" id=\"hud-product-modal\" hidden role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"hud-product-title\">\n    <div class=\"hud-modal-backdrop\" id=\"hud-product-backdrop\"></div>\n    <div class=\"hud-modal-card hud-modal-card--product\">\n      <header class=\"hud-modal-header\">\n        <h3 id=\"hud-product-title\">Garment Selector</h3>\n        <button type=\"button\" class=\"hud-modal-close\" id=\"hud-product-close\" aria-label=\"Close modal\">&times;</button>\n      </header>\n      <div class=\"hud-modal-body\">\n        <!-- Section 1: Audience -->\n        <div class=\"hud-section\">\n          <div class=\"hud-segmented-switch\" role=\"group\" aria-label=\"Target Audience\">\n            <button type=\"button\" class=\"hud-segment-btn is-active\" data-hud-audience=\"men\">Men</button>\n            <button type=\"button\" class=\"hud-segment-btn\" data-hud-audience=\"women\">Women</button>\n            <button type=\"button\" class=\"hud-segment-btn\" data-hud-audience=\"unisex\">Unisex</button>\n          </div>\n        </div>\n\n        <!-- Section 2: Garment Family Cards -->\n        <div class=\"hud-section\">\n          <div class=\"hud-family-selector\" role=\"group\" aria-label=\"Garment Family\">\n            <button type=\"button\" class=\"hud-family-card is-active\" data-hud-family=\"t-shirt\">\n              <div class=\"hud-family-icon\">\n                <svg viewBox=\"0 0 64 64\" fill=\"currentColor\" width=\"36\" height=\"36\">\n                  <path d=\"M22 6 L28 14 C30 15 34 15 36 14 L42 6 L56 14 L50 26 L44 22 L44 58 L20 58 L20 22 L14 26 L8 14 Z\"/>\n                </svg>\n              </div>\n              <span class=\"hud-family-label\">Tee</span>\n            </button>\n            <button type=\"button\" class=\"hud-family-card\" data-hud-family=\"hood\">\n              <div class=\"hud-family-icon\">\n                <svg viewBox=\"0 0 64 64\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" width=\"36\" height=\"36\">\n                  <path d=\"M22 14 C22 8 32 4 42 14 L54 22 L48 30 L44 26 L44 58 L20 58 L20 26 L16 30 L10 22 Z\"/>\n                  <path d=\"M26 12 C26 20 38 20 38 12\"/>\n                  <rect x=\"25\" y=\"40\" width=\"14\" height=\"10\" rx=\"2\"/>\n                </svg>\n              </div>\n              <span class=\"hud-family-label\">Hoodie</span>\n            </button>\n            <button type=\"button\" class=\"hud-family-card\" data-hud-family=\"crew\">\n              <div class=\"hud-family-icon\">\n                <svg viewBox=\"0 0 64 64\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" width=\"36\" height=\"36\">\n                  <path d=\"M20 10 C24 14 40 14 44 10 L56 18 L50 28 L44 24 L44 58 L20 58 L20 24 L14 28 L8 18 Z\"/>\n                  <path d=\"M24 10 C24 16 40 16 40 10\"/>\n                </svg>\n              </div>\n              <span class=\"hud-family-label\">Crewneck</span>\n            </button>\n            <button type=\"button\" class=\"hud-family-card\" data-hud-family=\"zip\">\n              <div class=\"hud-family-icon\">\n                <svg viewBox=\"0 0 64 64\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" width=\"36\" height=\"36\">\n                  <path d=\"M22 14 C22 8 32 4 42 14 L54 22 L48 30 L44 26 L44 58 L20 58 L20 26 L16 30 L10 22 Z\"/>\n                  <line x1=\"32\" y1=\"14\" x2=\"32\" y2=\"58\"/>\n                </svg>\n              </div>\n              <span class=\"hud-family-label\">Zip-up</span>\n            </button>\n            <button type=\"button\" class=\"hud-family-card\" data-hud-family=\"long sleeve\">\n              <div class=\"hud-family-icon\">\n                <svg viewBox=\"0 0 64 64\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" width=\"36\" height=\"36\">\n                  <path d=\"M22 8 C25 12 39 12 42 8 L58 38 L50 42 L44 26 L44 58 L20 58 L20 26 L14 42 L6 38 Z\"/>\n                </svg>\n              </div>\n              <span class=\"hud-family-label\">Long sleeve</span>\n            </button>\n          </div>\n        </div>\n\n        <!-- Section 3: Blank Specs & Switcher -->\n        <div class=\"hud-section hud-blank-box\">\n          <div class=\"hud-blank-info\">\n            <strong class=\"hud-blank-name\" id=\"hud-blank-title\">Bella+Canvas 3001</strong>\n            <p class=\"hud-blank-desc\" id=\"hud-blank-material\">4.2 oz, 100% Airlume combed and ring-spun cotton</p>\n          </div>\n          <div class=\"hud-blank-actions\">\n            <button type=\"button\" class=\"hud-btn-subtle\" id=\"hud-btn-change-blank\">Change Blank</button>\n            <button type=\"button\" class=\"hud-btn-navy\" id=\"hud-btn-apply-blank\">Apply & Close</button>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <!-- Floating HUD 2: Upload Design(s) Pop-Up Modal -->\n  <div class=\"hud-floating-modal\" id=\"hud-upload-modal\" hidden role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"hud-upload-title\">\n    <div class=\"hud-modal-backdrop\" id=\"hud-upload-backdrop\"></div>\n    <div class=\"hud-modal-card hud-modal-card--upload\">\n      <header class=\"hud-modal-header\">\n        <h3 id=\"hud-upload-title\">Upload Design(s)</h3>\n        <button type=\"button\" class=\"hud-modal-close\" id=\"hud-upload-close\" aria-label=\"Close modal\">&times;</button>\n      </header>\n      <div class=\"hud-modal-body\">\n        <!-- Location Side Toggle -->\n        <div class=\"hud-side-toggle\" role=\"tablist\" aria-label=\"Side Selector\">\n          <button type=\"button\" class=\"hud-side-tab is-active\" id=\"hud-side-front\" data-hud-side=\"front\" role=\"tab\" aria-selected=\"true\">Front</button>\n          <button type=\"button\" class=\"hud-side-tab\" id=\"hud-side-back\" data-hud-side=\"back\" role=\"tab\" aria-selected=\"false\">Back</button>\n        </div>\n\n        <!-- Print Zone Selector -->\n        <div class=\"hud-zone-selector\" id=\"hud-zone-selector\">\n          <span class=\"hud-zone-title\">Print Zone</span>\n          <div class=\"hud-zone-pills\" id=\"hud-zone-pills\">\n            <label class=\"hud-zone-pill is-active\">\n              <input type=\"radio\" name=\"hud-print-zone\" value=\"center\" checked />\n              <span>Center Chest</span>\n            </label>\n            <label class=\"hud-zone-pill\">\n              <input type=\"radio\" name=\"hud-print-zone\" value=\"left-chest\" />\n              <span>Left Chest</span>\n            </label>\n            <label class=\"hud-zone-pill\">\n              <input type=\"radio\" name=\"hud-print-zone\" value=\"full-front\" />\n              <span>Full Front / Oversize</span>\n            </label>\n          </div>\n        </div>\n\n        <!-- Drag & Drop Upload Zone -->\n        <div class=\"hud-upload-box\" id=\"hud-upload-dropzone\">\n          <input type=\"file\" id=\"hud-file-input\" class=\"visually-hidden\" accept=\"image/png,image/jpeg,image/svg+xml,image/webp,image/bmp,image/tiff\" />\n          <div class=\"hud-upload-drop-content\">\n            <svg class=\"hud-upload-cloud-icon\" width=\"36\" height=\"36\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n              <path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"></path>\n              <polyline points=\"17 8 12 3 7 8\"></polyline>\n              <line x1=\"12\" y1=\"3\" x2=\"12\" y2=\"15\"></line>\n            </svg>\n            <p class=\"hud-upload-prompt\"><strong>Click to browse</strong> or drag and drop artwork</p>\n            <p class=\"hud-upload-formats\">PNG, JPG, SVG, WEBP, BMP, TIFF up to 50MB</p>\n          </div>\n        </div>\n\n        <!-- Live DPI Guard Badges -->\n        <div class=\"hud-dpi-status\" id=\"hud-dpi-status\" hidden>\n          <div class=\"hud-dpi-badge is-valid\" id=\"hud-dpi-badge\">\n            <svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\"><polyline points=\"20 6 9 17 4 12\"/></svg>\n            <span id=\"hud-dpi-label\">✓ 300 DPI Validated (Print Ready)</span>\n          </div>\n          <span class=\"hud-dpi-dims\" id=\"hud-dpi-dims\">2400 × 3000 px</span>\n        </div>\n\n        <!-- Desired Print Dimensions (Inches Input) -->\n        <div class=\"hud-desired-size-card\" id=\"hud-desired-size-card\">\n          <div class=\"hud-size-card-header\">\n            <div class=\"hud-size-card-title-row\">\n              <label for=\"hud-desired-width-input\" class=\"hud-size-card-label\">\n                <svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\">\n                  <path d=\"M21 6H3\"/><path d=\"M21 12H9\"/><path d=\"M21 18H7\"/><path d=\"M3 6v12\"/>\n                </svg>\n                <span>Desired Print Width</span>\n              </label>\n              <span class=\"hud-size-est-pill\">Estimate</span>\n            </div>\n            <span class=\"hud-size-card-sub\">Mockup is a visual estimate · specify your target print width for production</span>\n          </div>\n\n          <div class=\"hud-size-card-inputs\">\n            <div class=\"hud-inch-input-group\">\n              <input\n                type=\"number\"\n                id=\"hud-desired-width-input\"\n                class=\"hud-inch-number-input\"\n                min=\"1\"\n                max=\"16\"\n                step=\"0.1\"\n                value=\"10.5\"\n                aria-label=\"Desired print width in inches\"\n              />\n              <span class=\"hud-inch-unit-tag\">in wide</span>\n            </div>\n            <span class=\"hud-inch-sep\">×</span>\n            <div class=\"hud-inch-calc-box\" title=\"Auto-calculated height maintaining artwork aspect ratio\">\n              <span class=\"hud-inch-calc-val\" id=\"hud-desired-height-val\">12.0</span>\n              <span class=\"hud-inch-unit-tag\">in high</span>\n            </div>\n          </div>\n\n          <div class=\"hud-size-presets\" role=\"group\" aria-label=\"Common print size presets\">\n            <button type=\"button\" class=\"hud-size-preset-chip\" data-preset-inches=\"3.0\">Left Chest (3.0\")</button>\n            <button type=\"button\" class=\"hud-size-preset-chip\" data-preset-inches=\"3.5\">Pocket (3.5\")</button>\n            <button type=\"button\" class=\"hud-size-preset-chip\" data-preset-inches=\"10.0\">Standard (10.0\")</button>\n            <button type=\"button\" class=\"hud-size-preset-chip\" data-preset-inches=\"12.0\">Full Chest (12.0\")</button>\n          </div>\n        </div>\n      </div>\n      <footer class=\"hud-modal-footer\">\n        <button type=\"button\" class=\"hud-btn-navy\" id=\"hud-btn-apply-upload\">Done · Place on Mockup</button>\n      </footer>\n    </div>\n  </div>\n\n  <!-- Fullscreen Enlarge Lightbox Modal -->\n  <div class=\"lifestyle-zoom-hud\" id=\"lifestyle-zoom-hud\" hidden>\n    <button type=\"button\" class=\"lifestyle-zoom-backdrop\" id=\"lifestyle-zoom-backdrop\" aria-label=\"Close preview\"></button>\n    <div class=\"lifestyle-zoom-sheet\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"lifestyle-zoom-title\">\n      <header class=\"lifestyle-zoom-header\">\n        <div>\n          <h3 id=\"lifestyle-zoom-title\">Mockup Lightbox</h3>\n          <p class=\"lifestyle-zoom-sub\" id=\"lifestyle-zoom-sub\">Pinch or scroll to zoom · drag to pan</p>\n        </div>\n        <button type=\"button\" class=\"lifestyle-zoom-close\" id=\"lifestyle-zoom-close\" aria-label=\"Close\">&times;</button>\n      </header>\n      <div class=\"lifestyle-zoom-stage\" id=\"lifestyle-zoom-stage\">\n        <img class=\"lifestyle-zoom-image\" id=\"lifestyle-zoom-image\" alt=\"\" width=\"720\" height=\"960\" draggable=\"false\" />\n      </div>\n      <footer class=\"lifestyle-zoom-footer\">\n        <div class=\"lifestyle-zoom-nav\" id=\"lifestyle-zoom-nav\" aria-label=\"Other mockups\"></div>\n        <div class=\"lifestyle-zoom-tools\">\n          <button type=\"button\" class=\"lifestyle-zoom-tool\" id=\"lifestyle-zoom-out\" aria-label=\"Zoom out\">−</button>\n          <span class=\"lifestyle-zoom-level\" id=\"lifestyle-zoom-level\">100%</span>\n          <button type=\"button\" class=\"lifestyle-zoom-tool\" id=\"lifestyle-zoom-in\" aria-label=\"Zoom in\">+</button>\n          <button type=\"button\" class=\"lifestyle-zoom-tool\" id=\"lifestyle-zoom-reset\">Reset</button>\n          <button type=\"button\" class=\"lifestyle-zoom-done\" id=\"lifestyle-zoom-done\">Done</button>\n        </div>\n      </footer>\n    </div>\n  </div>\n</div>\n";
+
 export function MockupDesigner() {
   useEffect(() => {
-    let dataEl = document.getElementById("mockup-editor-data");
-    if (!dataEl) {
-      dataEl = document.createElement("script");
-      dataEl.id = "mockup-editor-data";
-      (dataEl as HTMLScriptElement).type = "application/json";
-      document.getElementById("mockup-editor-root")?.prepend(dataEl);
-    }
-    dataEl.textContent = JSON.stringify(editorData);
+    let canceled = false;
 
-    // Always pull CSS/JS from Mockup App Railway so apparel stays in sync.
-    let link = document.getElementById("mockup-editor-css") as HTMLLinkElement | null;
-    if (!link) {
-      link = document.createElement("link");
-      link.id = "mockup-editor-css";
-      link.rel = "stylesheet";
-      document.head.appendChild(link);
-    }
-    link.href = `${mockupApp}/api/mockup-editor-css?v=${encodeURIComponent(EDITOR_ASSET_VERSION)}`;
+    async function loadStudio() {
+      const v = Date.now().toString();
 
-    document.getElementById("mockup-editor-js")?.remove();
-    const script = document.createElement("script");
-    script.id = "mockup-editor-js";
-    script.src = `${mockupApp}/api/mockup-editor-js?v=${encodeURIComponent(EDITOR_ASSET_VERSION)}`;
-    document.body.appendChild(script);
+      // 1. Fetch live editor HTML from Mockup App if possible
+      try {
+        const res = await fetch(`${mockupApp}/api/mockup-editor-html?v=${v}`);
+        if (res.ok) {
+          const remoteHtml = await res.text();
+          const mount = document.getElementById("mockup-editor-mount");
+          if (mount && !canceled && remoteHtml && remoteHtml.includes("mockup-editor-root")) {
+            mount.innerHTML = remoteHtml;
+          }
+        }
+      } catch (err) {
+        console.warn("Using embedded HUD studio markup", err);
+      }
+
+      if (canceled) return;
+
+      // 2. Ensure data script tag exists inside mockup-editor-root
+      let dataEl = document.getElementById("mockup-editor-data");
+      if (!dataEl) {
+        dataEl = document.createElement("script");
+        dataEl.id = "mockup-editor-data";
+        (dataEl as HTMLScriptElement).type = "application/json";
+        document.getElementById("mockup-editor-root")?.prepend(dataEl);
+      }
+      dataEl.textContent = JSON.stringify(editorData);
+
+      // 3. Inject CSS
+      let link = document.getElementById("mockup-editor-css") as HTMLLinkElement | null;
+      if (!link) {
+        link = document.createElement("link");
+        link.id = "mockup-editor-css";
+        link.rel = "stylesheet";
+        document.head.appendChild(link);
+      }
+      link.href = `${mockupApp}/api/mockup-editor-css?v=${v}`;
+
+      // 4. Inject JS
+      document.getElementById("mockup-editor-js")?.remove();
+      const script = document.createElement("script");
+      script.id = "mockup-editor-js";
+      script.src = `${mockupApp}/api/mockup-editor-js?v=${v}`;
+      document.body.appendChild(script);
+    }
+
+    loadStudio();
 
     return () => {
-      script.remove();
+      canceled = true;
+      document.getElementById("mockup-editor-js")?.remove();
     };
   }, []);
 
@@ -61,318 +87,10 @@ export function MockupDesigner() {
         type="application/json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(editorData) }}
       />
-      <div id="mockup-editor-root">
-        <div className="mockup-editor" id="mockup-editor">
-          <header className="mockup-bento-header">
-            <div className="mockup-bento-heading">
-              <p className="mockup-bento-eyebrow">Custom merch</p>
-              <h1 className="mockup-editor-title">Design Your Product</h1>
-              <p className="mockup-bento-lead">
-                Tap, upload, place, then checkout on Formulated Prints.
-              </p>
-            </div>
-            <nav className="mockup-progress-rail" aria-label="Builder progress">
-              <button type="button" className="progress-chip is-current" data-scroll-target="bento-product">
-                <span className="progress-chip-number">1</span>
-                <span>Product</span>
-              </button>
-              <button type="button" className="progress-chip" data-scroll-target="bento-print-art">
-                <span className="progress-chip-number">2</span>
-                <span>Design</span>
-              </button>
-              <button type="button" className="progress-chip" data-scroll-target="order-summary">
-                <span className="progress-chip-number">3</span>
-                <span>Cart</span>
-              </button>
-            </nav>
-          </header>
-
-          <div className="mockup-bento-layout">
-            <main className="mockup-main" aria-label="Configure your merch">
-              <div className="mockup-bento-grid">
-                <section
-                  className="bento-tile bento-tile--product bento-tile--wide bento-tile--compact"
-                  id="bento-product"
-                >
-                  <header className="bento-tile-header">
-                    <div>
-                      <p className="bento-step-label">1</p>
-                      <h2>Product</h2>
-                      <p className="bento-section-summary" id="product-section-summary">
-                        Choose one to start.
-                      </p>
-                    </div>
-                  </header>
-                  <div className="bento-tile-body">
-                    <div className="product-buttons" id="product-buttons" aria-live="polite">
-                      <div className="loading-placeholder">Loading…</div>
-                    </div>
-                  </div>
-                </section>
-
-                <section
-                  className="bento-tile bento-tile--print-art bento-tile--wide is-locked"
-                  id="bento-print-art"
-                  aria-labelledby="print-art-title"
-                >
-                  <header className="bento-tile-header">
-                    <div>
-                      <p className="bento-step-label">2</p>
-                      <h2 id="print-art-title">Design your merch</h2>
-                      <p className="bento-section-summary" id="print-art-section-summary">
-                        Pick a product first.
-                      </p>
-                    </div>
-                  </header>
-                  <div className="bento-tile-body">
-                    <div className="design-desk" id="design-desk">
-                      <aside
-                        className="design-live-preview"
-                        id="bento-lifestyle"
-                        aria-labelledby="lifestyle-title"
-                      >
-                        <div className="design-live-preview-header">
-                          <div>
-                            <h3 id="lifestyle-title">Live mockup</h3>
-                            <p className="bento-section-summary" id="lifestyle-section-summary">
-                              Pick a product to preview.
-                            </p>
-                          </div>
-                        </div>
-                        <div className="design-action-bar" id="design-action-bar" aria-label="Design actions">
-                          <div className="loading-placeholder">Pick a product first.</div>
-                        </div>
-                        <div className="design-hud" id="design-modal" hidden>
-                          <button
-                            type="button"
-                            className="design-hud-backdrop"
-                            id="design-modal-backdrop"
-                            aria-label="Close panel"
-                          />
-                          <div
-                            className="design-hud-sheet"
-                            role="dialog"
-                            aria-modal="true"
-                            aria-labelledby="design-modal-title"
-                          >
-                            <header className="design-hud-header">
-                              <div>
-                                <h3 id="design-modal-title">Upload</h3>
-                                <p className="design-hud-sub" id="design-modal-sub" />
-                              </div>
-                              <button
-                                type="button"
-                                className="design-hud-close"
-                                id="design-modal-close"
-                                aria-label="Close"
-                              >
-                                ×
-                              </button>
-                            </header>
-                            <div className="design-hud-body">
-                              <div className="design-hud-pane" id="design-modal-upload" hidden>
-                                <div
-                                  className="design-side-controls"
-                                  id="design-side-controls"
-                                  aria-live="polite"
-                                />
-                              </div>
-                              <div className="design-hud-pane" id="design-modal-placement" hidden>
-                                <div
-                                  className="design-side-placement"
-                                  id="bento-placement"
-                                  aria-label="Placement controls"
-                                >
-                                  <div className="design-section" id="placement-section">
-                                    <div className="preview-container" id="preview-container" />
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <footer className="design-hud-footer">
-                              <button type="button" className="design-hud-done" id="design-modal-done">
-                                Done
-                              </button>
-                            </footer>
-                          </div>
-                        </div>
-                        <div className="lifestyle-gallery" id="lifestyle-gallery" />
-                        <div className="bento-empty-state" id="lifestyle-empty" hidden>
-                          Pick a product to see your mockup.
-                        </div>
-                        <div className="lifestyle-zoom-hud" id="lifestyle-zoom-hud" hidden>
-                          <button
-                            type="button"
-                            className="lifestyle-zoom-backdrop"
-                            id="lifestyle-zoom-backdrop"
-                            aria-label="Close preview"
-                          />
-                          <div
-                            className="lifestyle-zoom-sheet"
-                            role="dialog"
-                            aria-modal="true"
-                            aria-labelledby="lifestyle-zoom-title"
-                          >
-                            <header className="lifestyle-zoom-header">
-                              <div>
-                                <h3 id="lifestyle-zoom-title">Mockup</h3>
-                                <p className="lifestyle-zoom-sub" id="lifestyle-zoom-sub">
-                                  Pinch or scroll to zoom · drag to pan
-                                </p>
-                              </div>
-                              <button
-                                type="button"
-                                className="lifestyle-zoom-close"
-                                id="lifestyle-zoom-close"
-                                aria-label="Close"
-                              >
-                                ×
-                              </button>
-                            </header>
-                            <div className="lifestyle-zoom-stage" id="lifestyle-zoom-stage">
-                              {/* eslint-disable-next-line @next/next/no-img-element */}
-                              <img
-                                className="lifestyle-zoom-image"
-                                id="lifestyle-zoom-image"
-                                alt=""
-                                width={720}
-                                height={960}
-                                draggable={false}
-                              />
-                            </div>
-                            <footer className="lifestyle-zoom-footer">
-                              <div
-                                className="lifestyle-zoom-nav"
-                                id="lifestyle-zoom-nav"
-                                aria-label="Other mockups"
-                              />
-                              <div className="lifestyle-zoom-tools">
-                                <button
-                                  type="button"
-                                  className="lifestyle-zoom-tool"
-                                  id="lifestyle-zoom-out"
-                                  aria-label="Zoom out"
-                                >
-                                  −
-                                </button>
-                                <span className="lifestyle-zoom-level" id="lifestyle-zoom-level">
-                                  100%
-                                </span>
-                                <button
-                                  type="button"
-                                  className="lifestyle-zoom-tool"
-                                  id="lifestyle-zoom-in"
-                                  aria-label="Zoom in"
-                                >
-                                  +
-                                </button>
-                                <button
-                                  type="button"
-                                  className="lifestyle-zoom-tool"
-                                  id="lifestyle-zoom-reset"
-                                >
-                                  Reset
-                                </button>
-                                <button
-                                  type="button"
-                                  className="lifestyle-zoom-done"
-                                  id="lifestyle-zoom-done"
-                                >
-                                  Done
-                                </button>
-                              </div>
-                            </footer>
-                          </div>
-                        </div>
-                      </aside>
-                    </div>
-                  </div>
-                </section>
-              </div>
-            </main>
-
-            <aside className="mockup-order-rail" id="order-summary" aria-label="Build your order">
-              <div className="order-rail-inner">
-                <header className="order-rail-header">
-                  <div>
-                    <p className="bento-step-label">3</p>
-                    <h2>Your order</h2>
-                    <p className="bento-section-summary">
-                      Pick options, then add to Formulated Prints cart.
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    className="order-sheet-close"
-                    id="order-sheet-close"
-                    aria-label="Close order summary"
-                  >
-                    ×
-                  </button>
-                </header>
-                <div className="order-cart-glance" style={{ display: "none" }}>
-                  <span id="sidebar-cart-count">Cart</span>
-                  <strong id="sidebar-cart-total">$0.00</strong>
-                </div>
-                <div
-                  className="sidebar-cart-discount"
-                  id="sidebar-cart-discount"
-                  style={{ display: "none" }}
-                />
-                <div className="confirm-summary" id="confirm-summary" aria-live="polite">
-                  <div className="order-empty-state">Pick a product to start.</div>
-                </div>
-                <div
-                  className="upload-progress"
-                  id="upload-progress"
-                  style={{ display: "none" }}
-                  role="status"
-                  aria-live="polite"
-                >
-                  <div className="upload-progress-inner">
-                    <div className="upload-spinner" />
-                    <div className="upload-progress-text">
-                      <span className="upload-step-label" id="upload-step-label">
-                        Getting ready…
-                      </span>
-                      <span className="upload-blurb">Hang tight — almost done.</span>
-                    </div>
-                  </div>
-                  <div className="upload-steps-track" id="upload-steps-track" />
-                </div>
-                <div className="order-final-actions">
-                  <button type="button" className="btn-add-to-cart" id="btn-add-to-cart" disabled>
-                    Add to cart
-                  </button>
-                  <div className="order-cart-links" style={{ display: "none" }} />
-                </div>
-              </div>
-            </aside>
-          </div>
-
-          <button
-            type="button"
-            className="order-sheet-backdrop"
-            id="order-sheet-backdrop"
-            aria-label="Close order summary"
-            hidden
-          />
-          <div className="mobile-order-bar" id="mobile-order-bar">
-            <div className="mobile-order-total">
-              <span id="mobile-order-count">No items yet</span>
-              <strong id="mobile-order-total">$0.00</strong>
-            </div>
-            <button
-              type="button"
-              id="mobile-order-toggle"
-              aria-controls="order-summary"
-              aria-expanded="false"
-            >
-              Review order
-            </button>
-          </div>
-        </div>
-      </div>
+      <div
+        id="mockup-editor-mount"
+        dangerouslySetInnerHTML={{ __html: INITIAL_STUDIO_HTML }}
+      />
     </div>
   );
 }

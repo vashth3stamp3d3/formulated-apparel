@@ -1,9 +1,18 @@
 import type { NextConfig } from "next";
+import blogRedirects from "./scripts/blog-redirects.json";
 
 const mockupAppUrl = (
   process.env.NEXT_PUBLIC_MOCKUP_APP_URL ||
   "https://mockup-app-production.up.railway.app"
 ).replace(/\/+$/, "");
+
+const prunedBlogRedirects = Object.entries(blogRedirects).map(
+  ([from, to]) => ({
+    source: `/blog/${from}`,
+    destination: `/blog/${to}`,
+    permanent: true,
+  }),
+);
 
 const nextConfig: NextConfig = {
   output: "standalone",
@@ -21,6 +30,7 @@ const nextConfig: NextConfig = {
         destination: "https://formulatedprintsapparel.com/:path*",
         permanent: true,
       },
+      ...prunedBlogRedirects,
     ];
   },
   async rewrites() {
